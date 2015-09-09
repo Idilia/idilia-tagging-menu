@@ -1,0 +1,32 @@
+{
+  "name": "idilia-tagging-menu",
+  "version": "1.0.0",
+  "homepage": "https://github.com/Idilia/idilia-tagging-menu",
+  "authors": [
+    "Idilia <dev@idilia.com>"
+  ],
+  "description": "jQuery plugin to tag text using Idilia Language Graph senses (requires Idilia backend support)",
+  "main": ["dist/jquery.tagging_menu.bundle.js", "dist/jquery.tagging_menu.bundle.css"],
+  "moduleType": [
+    "globals"
+  ],
+  "dependencies": {
+    "jquery": "*",
+    "idilia-owl-carousel": "~1.3.4-idilia"
+  },
+  "keywords": [
+    "jquery",
+    "plugin",
+    "javascript",
+    "library",
+    "semantic"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
