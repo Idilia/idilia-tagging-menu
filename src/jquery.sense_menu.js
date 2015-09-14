@@ -249,6 +249,9 @@ if (typeof Object.create !== "function") {
           base.carouselW.destroy();
         }
         base.$elem.removeData("senseMenu");
+        base.$elem.children('.idl-sensetiles').children().each(function () {
+          $(this).data("senseCard").destroy();
+        });
       },
 
       
@@ -264,23 +267,35 @@ if (typeof Object.create !== "function") {
           /* Remove group and current selection highlights */
           base._unhighlightSenseGroups();
 
+          /* Highlight current select and trigger the event */
           var $card = $(this);
-          if ($card.hasClass("idl-tile-create")) {
-            base._senseCreateEH($card);
-            event.preventDefault();
-          } else {
-            /* Highlight current select and trigger the event */
+          if (!$card.hasClass("idl-tile-create")) {
             base.select($card);
           }
-        });
-
-        base.$elem.on('click', ".idl-def-tgl", function (event) {
-          /* Add a handler when the expand/collapse definition buttons are clicked. */
-          base._toggleDefEH(event, $(this));
           event.preventDefault();
-          event.stopImmediatePropagation();
         });
-                
+        
+        /* Detect that we might need the LGCC */
+        var $addLinks  = base.$elem.find('.idl-create-links');
+        if ($addLinks.size() > 0) {
+          /* Handler when selecting a create link */
+          $addLinks.on('click', 'a', function (event) {
+            var $link = $(this);
+            if ($link.parent().hasClass('idl-create-link-more')) {
+              /* Reveal additional links when idl-create-link-more */
+              $link.parent().hide().nextAll().show();
+            } else {
+              var $card = $link.closest(".idl-tile-container");
+              base._senseCreateEH($card, $link);
+            }
+            event.preventDefault();
+            event.stopPropagation();
+          });
+                    
+          /* Load the script that we need if not here yet. */
+          base._loadLgcc();
+        }
+        
         /* Add handlers to switch between grid and carousel views */
         var $ctrls = base._viewCtrls();
         if ($.fn.owlCarousel === undefined)
@@ -302,7 +317,7 @@ if (typeof Object.create !== "function") {
         $ctrls.find(".idl-def-tgl").on('click', function (event) {
           var $butTxt = $(this);
           var $tgls = base.$elem.find("div.idl-def-tgl");
-          var $defs = $tgls.siblings('.idl-def');
+          var $defs = $tgls.closest('.idl-sensetile').children('.idl-def');
           if ($butTxt.hasClass('idl-def-hide-icon')) {
             $defs.slideUp(300);
             $tgls.add($butTxt).removeClass('idl-def-hide-icon').addClass('idl-def-show-icon');
@@ -319,6 +334,9 @@ if (typeof Object.create !== "function") {
             base._refreshWidth(); }
         });
 
+        /* Active the sensecard plugin on all our sensecards. */
+        base.$elem.children('.idl-sensetiles').children().senseCard({lgcc: base.options.lgcc});
+        
         /* Ensure that we know the selected sense if any */
         base._selTileIdx();
       },
@@ -509,9 +527,9 @@ if (typeof Object.create !== "function") {
        * Event handler for request to expand or close the definition.
        * $tgl is the element with class idl-def-tgl
        */
-      _toggleDefEH : function (event, $tgl) {
+      _toggleDefEH : function ($tgl) {
         var base = this;
-        var $st = $tgl.parent();
+        var $st = $tgl.closest('.idl-sensetile');
         var $def = $st.children('.idl-def');
         var showingDefn = $def.is(":visible");
         if (showingDefn) {
@@ -526,29 +544,51 @@ if (typeof Object.create !== "function") {
       /** 
        * Event handler for a request to create a new sense
        * $card: The 'add sense card' (.idl-tile-container .idl-tile-create)
+       * $link: optional, the link clicked
        */
-      _senseCreateEH: function($card) {
+      _senseCreateEH: function($card, $link) {
+        var base = this;
+        
+        var errMsg="This functionality is not available at this time. Please retry later.";
         if (!window.com || !com.idilia || !com.idilia.lgcc) {
-          alert("lgcc.js was not loaded");
+          alert(errMsg);
           return;
         }
         
         /* Read the word from the title of the card */
-        var word = $card.find(".idl-tile-sum h1").text();
+        var text = $link.text();
+        var len = $link.data("len");
+        var tmplt = $card.attr("class").match(/idl-tmplt-[\w-]*\b/)[0].substring(10);
+        var custId = $card.data("customer");
+        var auth = $card.data("auth-token");
         
-        /* Read the customer from the parent */
-        var $menu = $card.closest(".idl-sensemenu");
-        var custId = $menu.data("customer");
-        var auth = $menu.data("auth-token");
-        
-        com.idilia.lgcc.createSense( {
-          customerId: custId,
-          word: word,
-          token: auth
-        }).then(function (res) {
-          alert("Callback from lgcc");
-          /* insert the card in the menu */
+        com.idilia.lgcc.createMeaning(this.$elem, this.options.lgcc, {
+          customerId: custId, /* id customer adding sense */
+          token: auth,  /* authentication token */
+          text: text,   /* text selected for the sensekey */
+          tmplt: tmplt, /* template of the sensecard to return */
+          len : len,    /* number of tokens spanned by expression */
+          v: 1          /* version number of protocol used by client */
+        }).done(function (res) {
+          if (res && res['card']) {
+            var $newCard = $(res['card']);
+            $card.before($newCard);
+            $newCard.senseCard({lgcc: base.options.lgcc});
+          }
+        }).fail(function (res) {
+          alert(errMsg);
         });
+      },
+      
+      _loadLgcc: function() {
+        if (window.com && com.idilia && com.idilia.lgcc) {
+          return;
+        }
+        if ($('#lgcc-script').size() > 0) {
+          return;
+        }
+        $.ajaxSetup({ cache: true });
+        $('head').append('<script id="lgcc-script" type="application/javascript" src="' + this.options.lgcc + 'apijs/lgcc.js"></script>');
       },
       
       end: null
@@ -569,13 +609,13 @@ if (typeof Object.create !== "function") {
 
   /** 
    * Add to jQuery namespace the default sense menu options.
-   * Note that these are using CSS classes from Font Awesome
    */
   $.fn.senseMenu.options = {
       sensesel: null,
       createsel: null,
       gridTileContainerClass: "", /* classes to add to .tile-container in grid mode */
       view: 'carousel',  /* view into which to open the menu */
+      lgcc: 'https://lgcc.idilia.com/lgcc/',
       carouselOptions : {
         navigation: true,
         navigationText: [ '<svg class="idl-owl-btn idl-owl-btn-prev"><polygon points="11,3 16,3 6,29 16,56 11,56 1,29"/></svg>', '<svg class="idl-owl-btn idl-owl-btn-next"><polygon points="3,3 8,3 18,29 8,56 3,56 13,29"/></svg>' ],

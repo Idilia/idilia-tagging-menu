@@ -199,3 +199,42 @@
 .idl-sensemenu .owl-theme .owl-controls .owl-buttons div.disabled:hover {
   opacity: 0;
 }
+
+/* Styles for adding a sense */
+body.idl-lgcc-open {
+ overflow:hidden;
+}
+
+div.idl-lgcc-outer {
+ overflow-x:hidden;
+ overflow-y:auto;
+ opacity:1;
+ position:fixed;
+ top:0;
+ left:0;
+ right:0;
+ bottom:0;
+ z-index:1000;
+}
+
+.idl-sensemenu.idl-grid .idl-tile-create .idl-sensetile {
+ cursor: default;
+}
+
+.idl-tile-create .idl-create-links p {
+ text-align: left;
+ font-size: 14px;
+ margin-left: 5px;
+ margin-bottom:0;
+}
+
+.idl-tile-create ul {
+ list-style:none;
+ padding-left:0;
+}
+.idl-tile-create li {
+ margin-left:15px;
+}
+.idl-tile-create .idl-create-link-more {
+ margin-top: 10px;
+}

@@ -161,6 +161,7 @@ if (typeof Object.create !== "function") {
         if (upd) {
           if (base.options.wordsContent === "tile") { 
             base.$elem[0].innerHTML = event['$selTile'][0].outerHTML;
+            base.$elem.senseCard({lgcc: base.options.senseMenuOptions.lgcc});
           }
           else {
             // Assemble the surface words for spanned spans
@@ -175,8 +176,8 @@ if (typeof Object.create !== "function") {
         }
 
         /* And close the menu */
-        if (!base.options.closeOnSelect)
-          _doNotClose = true;
+        if (base.options.closeOnSelect)
+          base.close();
       },
 
 
@@ -262,11 +263,14 @@ if (typeof Object.create !== "function") {
         return this.endOff;
       },
 
-      _htmlClickHandler: function() {
-          if (!_doNotClose && _openedWord) {
-            _openedWord.close();
-          }
-          _doNotClose = false;
+      _htmlClickHandler: function(event) {
+        if ($(event.target).closest(".idl-sensemenu").size() > 0) {
+          return;
+        }
+        if (!_doNotClose && _openedWord) {
+          _openedWord.close();
+        }
+        _doNotClose = false;
       },
 
       _monitorHtmlClicks : function(enable) {
@@ -363,7 +367,7 @@ if (typeof Object.create !== "function") {
         var e = base.$elem;
         e.popover('destroy');
 
-        if (base.showingPopup)
+        if (base.showingPopup && parms.content)
         {
           e.popover({
               content: parms.content,
@@ -406,8 +410,8 @@ if (typeof Object.create !== "function") {
           createsel: function (event) {
             event['$text'] = base.$elem;
             base.options.createsel(event);
-            if (!base.options.closeOnSelect) {
-              _doNotClose = true;
+            if (base.options.closeOnSelect) {
+              base.close();
             }
           }
 
@@ -705,6 +709,8 @@ if (typeof Object.create !== "function") {
                 var html = base._getSenseCard(word);
                 if (html !== "") {
                   word._popover({show: true, content: html});
+                } else {
+                  word._popover({show: true});
                 }
               }
               else {
