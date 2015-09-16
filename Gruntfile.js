@@ -25,7 +25,7 @@ module.exports = function(grunt) {
     // bundled version built in distribution
     concat: {
       bundle_js: {
-        src: ['src/jquery.sense_menu.js', 'src/jquery.tagging_menu.js'],
+        src: ['src/jquery.sense_card.js', 'src/jquery.sense_menu.js', 'src/jquery.tagging_menu.js'],
         dest: 'dist/jquery.tagging_menu.bundle.js'
       },
       bundle_css: {
