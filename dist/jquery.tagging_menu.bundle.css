@@ -148,17 +148,25 @@
  white-space: nowrap;
 }
 
-.idl-menu-sensecard .idl-sensetile .idl-def-tgl {
- width: 20px;
- height: 20px;
+.idl-menu-sensecard .idl-sensetile .idl-tile-ctrls {
  position: absolute;
  top: 3px;
  right: 1px;
  opacity: 0.2;
 }
 
-.idl-menu-sensecard .idl-sensetile:hover .idl-def-tgl {
+.idl-menu-sensecard .idl-sensetile:hover .idl-tile-ctrls {
  opacity: 1.0;
+}
+
+.idl-menu-sensecard .idl-sensetile .idl-def-tgl {
+ width: 20px;
+ height: 20px;
+}
+
+.idl-menu-sensecard .idl-sensetile .idl-sense-edit {
+ width: 20px;
+ height: 20px;
 }
 
 .idl-menu-sensecard .idl-tile-sum h1 {
@@ -172,7 +180,7 @@
  box-sizing: border-box;
 }
 
-.idl-menu-sensecard.idl-tile-other p,  .idl-menu-sensecard.idl-tile-create p {
+.idl-menu-sensecard.idl-tile-other p {
  text-align: center;
  font-size: 2em;
 }
@@ -196,6 +204,11 @@
  height: 32px;
  display: block;
  border: 0;
+}
+
+/* Lgcc pending access */
+.lgcc-pending {
+ cursor: progress;
 }
 
 /*
@@ -400,6 +413,44 @@
   opacity: 0;
 }
 
+/* Styles for adding a sense */
+body.idl-lgcc-open {
+ overflow:hidden;
+}
+
+div.idl-lgcc-outer {
+ overflow-x:hidden;
+ overflow-y:auto;
+ opacity:1;
+ position:fixed;
+ top:0;
+ left:0;
+ right:0;
+ bottom:0;
+ z-index:1000;
+}
+
+.idl-sensemenu.idl-grid .idl-tile-create .idl-sensetile {
+ cursor: default;
+}
+
+.idl-tile-create .idl-create-links p {
+ text-align: left;
+ font-size: 14px;
+ margin-left: 5px;
+ margin-bottom:0;
+}
+
+.idl-tile-create ul {
+ list-style:none;
+ padding-left:0;
+}
+.idl-tile-create li {
+ margin-left:15px;
+}
+.idl-tile-create .idl-create-link-more {
+ margin-top: 10px;
+}
 /*
  * CSS for the widget related to text tagging
  */
@@ -462,8 +513,4 @@
 
 .idl-menu-words .idl-menu-sensecard .idl-sensetile:hover {
   outline-color: #DDD;
-}
-
-.idl-menu-words .idl-def-tgl {
-  display: none;
 }

@@ -148,17 +148,25 @@
  white-space: nowrap;
 }
 
-.idl-menu-sensecard .idl-sensetile .idl-def-tgl {
- width: 20px;
- height: 20px;
+.idl-menu-sensecard .idl-sensetile .idl-tile-ctrls {
  position: absolute;
  top: 3px;
  right: 1px;
  opacity: 0.2;
 }
 
-.idl-menu-sensecard .idl-sensetile:hover .idl-def-tgl {
+.idl-menu-sensecard .idl-sensetile:hover .idl-tile-ctrls {
  opacity: 1.0;
+}
+
+.idl-menu-sensecard .idl-sensetile .idl-def-tgl {
+ width: 20px;
+ height: 20px;
+}
+
+.idl-menu-sensecard .idl-sensetile .idl-sense-edit {
+ width: 20px;
+ height: 20px;
 }
 
 .idl-menu-sensecard .idl-tile-sum h1 {
@@ -172,7 +180,7 @@
  box-sizing: border-box;
 }
 
-.idl-menu-sensecard.idl-tile-other p,  .idl-menu-sensecard.idl-tile-create p {
+.idl-menu-sensecard.idl-tile-other p {
  text-align: center;
  font-size: 2em;
 }
@@ -196,4 +204,9 @@
  height: 32px;
  display: block;
  border: 0;
+}
+
+/* Lgcc pending access */
+.lgcc-pending {
+ cursor: progress;
 }
