@@ -109,11 +109,11 @@ The simplest integration will be described here. Add-ons and options will be des
 
 The following options can be provided when instantiating the tagging menu:
 
-Option |	Description
---- | --
-sensesel	| Callback function invoked on a sense selection
-useToolTip	| Whether to display a sense card when mousing over word. Default is true. Set to false if you don’t have Bootstrap popover.
-preselect	| Determines if a sense is preselected for a word. Values are ‘sa’ for using the result of Sense Analysis (default); ‘mono’ for preselecting when a single sense is possible; ‘none’ for no preselection.
+Option | Description
+------ | -----------
+sensesel | Callback function invoked on a sense selection
+useToolTip | Whether to display a sense card when mousing over word. Default is true. Set to false if you don’t have Bootstrap popover.
+preselect | Determines if a sense is preselected for a word. Values are ‘sa’ for using the result of Sense Analysis (default); ‘mono’ for preselecting when a single sense is possible; ‘none’ for no preselection.
 senseMenuOptions | Options for the sense menu of each word. See Sense Menu plugin for its defaults.
 
 The options can be overriden individually:
