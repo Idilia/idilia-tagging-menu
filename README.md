@@ -116,7 +116,7 @@ useToolTip | Whether to display a sense card when mousing over word. Default is 
 preselect | Determines if a sense is preselected for a word. Values are ‘sa’ for using the result of Sense Analysis (default); ‘mono’ for preselecting when a single sense is possible; ‘none’ for no preselection.
 senseMenuOptions | Options for the sense menu of each word. See Sense Menu plugin for its defaults.
 
-The options can be overriden individually:
+The options can be overridden individually:
 
 ```javascript
   sensesel: function (event) { },
