@@ -6,7 +6,20 @@ This plugin is used in conjunction with Idilia's semantic API. The API is used t
 
 For a live example, see Idilia's [Tagging Menu Demo](http://api.idilia.com/TaggingMenuDemo).
 
-# Getting Started
+## Documentation
+
+This document describes the most likely usage of Idilia's tagging plugins. It is built on top of simpler modules which have their own documentation. They are:
+
+* [Tagging Menu jQuery plugin](docs/tagging_menu.plugin.md) - provides text sense tagging
+* [Sense Menu jQuery plugin](docs/sense_menu.plugin.md) - provides single word sense tagging
+* [Sense Card jQuery plugin](docs/sense_card.plugin.md) - provides sense card information functionality
+
+Moreover, extras are documented independently.
+
+* [Bootstrap Popover](docs/popover.extra.md) - adds popover sense card over tagged senses
+* [Carousel Sense Selection](docs/carousel.extra.md) - adds carousel sense selection as an alternative to the default grid layout.
+
+## Getting Started
 
 The simplest integration will be described here. Add-ons and options will be described in further sections.
 
@@ -24,18 +37,14 @@ The simplest integration will be described here. Add-ons and options will be des
  git clone http://github/Idilia/idilia-tagging-menu
  ```
 
-2. Include
+2. Include files
 
  ```html
- <!-- Individual CSS files-->
- <link rel="stylesheet" href="idilia-tagging-menu/dist/sensecard.css" />
- <link rel="stylesheet" href="idilia-tagging-menu/dist/jquery.sense_menu.css" />
- <link rel="stylesheet" href="idilia-tagging-menu/dist/jquery.tagging_menu.css" />
+ <!-- CSS -->
+ <link rel="stylesheet" href="idilia-tagging-menu/dist/jquery.tagging_menu.bundle.css" />
 
- <!-- Individual JS files-->
- <script src="idilia-tagging-menu/dist/jquery.sense_card.js"></script>
- <script src="idilia-tagging-menu/dist/jquery.sense_menu.js"></script>
- <script src="idilia-tagging-menu/dist/jquery.tagging_menu.js"></script>
+ <!-- Indi-->
+ <script src="idilia-tagging-menu/dist/jquery.tagging_menu.bundle.js"></script>
  ```
 
 2. DOM anchors
@@ -68,7 +77,7 @@ The simplest integration will be described here. Add-ons and options will be des
  createMenu = function (event) {
    var text = $("#textField").val();
    $.ajax({
-     data: { text : text, template : 'image_v3' },
+     data: { text : text },
      url: 'get_menu_for_text',
      dataType: 'jsonp'
    }).done(function (data) {
@@ -127,29 +136,3 @@ The options can be overridden individually:
     }
   }
   ```
-
-# Extras
-
-## Carousel View
-With above configuration, sense options have been presented in a wrapping grid layout. It is possible to show the options in a carousel. This requires the following additional inclusions.
-
-1. Get owl-carousel
-
- If you used bower to install the tagging menu files, owl-carousel has been downloaded in the bower_components directory. Otherwise, clone the appropriate github repository:
-
- ```shell
-git clone http://github.com/Idilia/OwlCarousel
-```
-
-2. Include owl-carousel
-
- ```html
- <!-- to be added before the idilia-tagging-menu stylesheets -->
- <link rel="stylesheet"  href="idilia-owl-carousel/owl-carousel/owl.carousel.css"/>
- <link rel="stylesheet" href="idilia-owl-carousel/owl-carousel/owl.theme.css"/>
-
- <!-- to be added before the idilia-tagging-menu javascript -->
- <script src="idilia-owl-carousel/owl-carousel/owl.carousel.js"></script>
- ```
-
-This adds a toggle option to the senses view which chooses between grid and carousel view.
