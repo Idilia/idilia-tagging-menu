@@ -10,14 +10,14 @@ For a live example, see Idilia's [Tagging Menu Demo](http://api.idilia.com/Taggi
 
 This document describes the most likely usage of Idilia's tagging plugins. It is built on top of simpler modules which have their own documentation. They are:
 
-* [Tagging Menu jQuery plugin](doc/tagging_menu.plugin.md) - text sense tagging
-* [Sense Menu jQuery plugin](doc/sense_menu.plugin.md) - single word sense tagging
-* [Sense Card jQuery plugin](doc/sense_card.plugin.md) - sense card presentation
+* [Tagging Menu jQuery plugin](docs/tagging_menu.plugin.md) - provides text sense tagging
+* [Sense Menu jQuery plugin](docs/sense_menu.plugin.md) - provides single word sense tagging
+* [Sense Card jQuery plugin](docs/sense_card.plugin.md) - provides sense card information functionality
 
 Moreover, extras are documented independently.
 
-* [Bootstrap Popover](doc/popover.extra.md) - adds popover sense card over tagged senses
-* [Carousel Sense Selection](doc/carousel.extra.md) - adds carousel sense selection as an alternative to the default grid layout.
+* [Bootstrap Popover](docs/popover.extra.md) - adds popover sense card over tagged senses
+* [Carousel Sense Selection](docs/carousel.extra.md) - adds carousel sense selection as an alternative to the default grid layout.
 
 ### Getting Started
 
