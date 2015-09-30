@@ -33,16 +33,14 @@ The simplest integration will be described here. Add-ons are documented in their
  Get all files from github:
 
  ```shell
- git clone http://github/Idilia/idilia-tagging-menu
+ git clone http://github.com/Idilia/idilia-tagging-menu
  ```
 
 2. Include files
 
  ```html
- <!-- CSS -->
  <link rel="stylesheet" href="idilia-tagging-menu/dist/jquery.tagging_menu.bundle.css" />
 
- <!-- Indi-->
  <script src="idilia-tagging-menu/dist/jquery.tagging_menu.bundle.js"></script>
  ```
 
