@@ -614,7 +614,7 @@ if (typeof Object.create !== "function") {
       sensesel: null,
       createsel: null,
       gridTileContainerClass: "", /* classes to add to .tile-container in grid mode */
-      view: 'carousel',  /* view into which to open the menu */
+      view: 'grid',  /* view into which to open the menu */
       lgcc: 'https://lgcc.idilia.com/lgcc/',
       carouselOptions : {
         navigation: true,
