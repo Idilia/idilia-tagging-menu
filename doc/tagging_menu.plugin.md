@@ -6,7 +6,7 @@ This plugin is used in conjunction with Idilia's [semantic API](http://www.idili
 
 For a live example, see the [Tagging Menu Demo](http://api.idilia.com/TaggingMenuDemo).
 
-### Documentation
+### <a name="documentation"></a>Documentation
 
 This document describes the most likely usage of Idilia's tagging plugins. It is built on top of simpler modules which have their own documentation. They are:
 
@@ -20,7 +20,7 @@ Moreover, optional functionality is documented independently.
 
 ### Getting Started
 
-The simplest integration will be described here. Add-ons are documented in their own page (see above) and options will be described in a [further section](#Options).
+The simplest integration will be described here. Add-ons are documented in their own page (see [above](#documentation)) and options will be described in a [further section](#options).
 
 1. Get files
 
@@ -115,7 +115,7 @@ The simplest integration will be described here. Add-ons are documented in their
 
 ### Customize
 
-#### Options
+#### <a name="options"></a>Options
 
 The following options can be provided when instantiating the tagging menu:
 
