@@ -60,10 +60,6 @@
   box-sizing: border-box;
 }
 
-.idl-sensecard .idl-icon-container {
-  /* margin-bottom: 10px; */
-}
-
 .idl-icon-container img {
  max-width: 100%;
  height: 60px;
@@ -218,6 +214,7 @@
 }
 
 /* Styles for backward compatibility */
+
 .idl-menu-sensecard.idl-tmplt-menu_image_v1 .idl-sensetile .idl-def-tgl
 {
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIGZpbGw9IiM2NjYiPjxwb2x5Z29uIHBvaW50cz0iNywxMyAxMyw3IDExLDUgNyw5IDMsNSAxLDciLz48L3N2Zz4NCg0K");
