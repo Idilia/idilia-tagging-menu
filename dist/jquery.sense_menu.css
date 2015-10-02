@@ -14,7 +14,7 @@
   display: none !important;
   visibility: hidden !important;
 }
- 
+
 /*
  * Styles for the navigation bar */
  */
@@ -55,14 +55,6 @@
   background-position: 7px 9px;
 }
 
-.idl-def-show-icon {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIGZpbGw9IiM2NjYiPjxwb2x5Z29uIHBvaW50cz0iNywxMyAxMyw3IDExLDUgNyw5IDMsNSAxLDciLz48L3N2Zz4NCg0K") !important;
-}
-
-.idl-def-hide-icon {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIGZpbGw9IiM2NjYiPjxwb2x5Z29uIHBvaW50cz0iNyw1IDEzLDExIDExLDEzIDcsOSAzLDEzIDEsMTEiLz48L3N2Zz4=") !important;
-}
-
 .idl-sensemenu .idl-nav-grps li a {
 }
 
@@ -95,7 +87,7 @@
  */
 
 .idl-sensemenu .idl-grpsel .idl-tile-sum {
-  background: #f8f8f8; 
+  background: #f8f8f8;
 }
 
 .idl-sensemenu .idl-sensesel .idl-tile-sum {
@@ -169,7 +161,7 @@
   background: #DDD;
   top: 75px;
 }
- 
+
 .idl-sensemenu.idl-carousel .owl-theme .owl-controls .owl-buttons .owl-prev {
   left: 5px;
   margin-right: 3px;
@@ -193,7 +185,7 @@
 .idl-owl-btn-next {
   margin-right: 3px;
 }
- 
+
 
 .idl-sensemenu .owl-theme .owl-controls .owl-buttons div.disabled,
 .idl-sensemenu .owl-theme .owl-controls .owl-buttons div.disabled:hover {
