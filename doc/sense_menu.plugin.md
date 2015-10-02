@@ -7,7 +7,7 @@ This plugin is used in conjunction with the [kb/sense_menu API](http://www.idili
 See it live at:
 
 * [Sense Menu Plugin Demo](http://api.idilia.com/TaggingMenuDemo/SenseMenu?carousel=0)
-* [Sense Menu Plugin Demo with Carousel View](http://api.idilia.com/TaggingMenuDemo/SenseMenu)
+* [Sense Menu Plugin Demo with Carousel option view](http://api.idilia.com/TaggingMenuDemo/SenseMenu)
 
 ### Getting Started
 
@@ -52,7 +52,7 @@ See it live at:
  createMenu = function (event) {
    var word = $("#wordField").val();
    $.ajax({
-     data: { text : word, template : 'image_v1' },
+     data: { text : word, template : 'image_v3' },
      type: 'GET',
      async: false,
      url: 'http://api.idilia.com/1/kb/sense_menu.js',

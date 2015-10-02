@@ -1,22 +1,21 @@
 ## Tagging Menu
 
-The Tagging Menu jQuery plugin enables assigning word senses to one or more consecutive words (e.g., a search query) in a web application. The sense for each word is selected using the [Sense Menu jQuery plugin](docs/sense_menu.md). The plugin manages the grouping of words into multi-word expressions or breaking-up multi-word expressions.
+The Tagging Menu jQuery plugin enables assigning word senses to one or more consecutive words (e.g., a search query) in a web application. The sense for each word is selected using the [Sense Menu jQuery plugin](sense_menu.md). The plugin manages the grouping of words into multi-word expressions or breaking-up multi-word expressions.
 
 This plugin is used in conjunction with Idilia's [semantic API](http://www.idilia.com/developer/). The API is used to retrieve the HTML representing the text to tag and the possible senses for each word. The plugin is used to select the senses.
 
-For a live example, see the [Tagging Menu Demo](http://api.idilia.com/TaggingMenuDemo).
+For a live example, see the [Tagging Menu Demo](http://api.idilia.com/TaggingMenuDemo). There are two different examples, one to tag [normal text](http://api.idilia.com/TaggingMenuDemo/Text) and another to tag [search expression](http://api.idilia.com/TaggingMenuDemo/Query).
 
 ### <a name="documentation"></a>Documentation
 
 This document describes the most likely usage of Idilia's tagging plugins. It is built on top of simpler modules which have their own documentation. They are:
 
-* [Sense Menu jQuery plugin](doc/sense_menu.plugin.md) - provides single word sense tagging
-* [Sense Card jQuery plugin](doc/sense_card.plugin.md) - provides sense card information functionality
+* [Sense Menu jQuery plugin](sense_menu.plugin.md) - provides single word sense tagging
+* [Sense Card jQuery plugin](sense_card.plugin.md) - provides sense card information functionality
 
 Moreover, optional functionality is documented independently.
 
-* [Bootstrap Popover](doc/popover.extra.md) - adds popover sense card over tagged senses
-* [Carousel Sense Selection](doc/carousel.extra.md) - adds carousel sense selection as an alternative to the default grid layout.
+* [Carousel Sense Selection](carousel.extra.md) - adds carousel sense selection as an alternative to the default grid layout.
 
 ### Getting Started
 
@@ -76,7 +75,7 @@ The simplest integration will be described here. Add-ons are documented in their
    $.ajax({
      data: { text : text },
      url: 'get_menu_for_text',
-     dataType: 'jsonp'
+     dataType: 'json'
    }).done(function (data) {
      /* Insert in document both the text and the menus */
      $("#words").html(data["text"]);
@@ -121,8 +120,8 @@ Option | Description
 ------ | -----------
 menus  | jquery object for the menus anchor above e.g. ```$("#menus")```
 wordsContent ("text" or "tile", default: "text")| "#words" div content type. The tagging menu will either show text or sense cards
-hideUntaggable (_boolean_, default: false)| parts of the text can be identified as untaggable (e.g. operators in a search expression). These can be hidden if this options is set to tru
-useToolTip (_boolean_, default: true)| Whether to display a sense card when mousing over word. Default is true. Set to false if you don’t have Bootstrap popover. This requires boostrap popover code (See [popover documentation](doc/popover.extra.md))
+hideUntaggable (_boolean_, default: false)| parts of the text can be identified as untaggable (e.g. operators in a search expression). These can be hidden if this options is set to true
+useToolTip (_boolean_, default: true)| Whether to display a sense card when mousing over word. Default is true. Set to false if you don’t have Bootstrap popover. See [popover documentation](popover.extra.md)
 informOnOther (_boolean_, default: true) | notify Idilia if "other sense" selection is made. In some cases the sense inventory will be missing a sense and this will be the only option
 closeOnSelect (_boolean_, default: true) | close the sense options view on sense selection
 preselect ('sa' (default), 'mono' or 'none')| Determines if a sense is preselected for a word. ‘sa’ uses the result of Sense Analysis (default); ‘mono’ preselects when a single sense is possible; ‘none’ disables pre-selection.
@@ -131,7 +130,7 @@ sensedesel | Callback function invoked on a sense deselection
 createsel | Callback function invoked on a create sense
 beforeOpen | Callback function invoked before a menu is opened
 afterClose | Callback function invoked after a menu is closed
-senseMenuOptions | Options for the sense menu of each word (e.g. 'view'). See [Sense Menu plugin](doc/sense_menu.plugin.md) for details.
+senseMenuOptions | Options for the sense menu of each word (e.g. 'view'). See [Sense Menu plugin](sense_menu.plugin.md) for details.
 apiUrl ( _string_, default: 'https://api.idilia.com/1/kb') | URL to use to get sense cards
 
 #### Styling
@@ -146,7 +145,7 @@ idl-tagged |	Assigned to a .idl-menu-word when a sense is selected for it. Eithe
 idl-mantagged	| Assigned to a .idl-menu-word when a sense is manually assigned for it.
 idl-untagged	| Assigned to a .idl-menu-word which requires a sense.
 
-Other classes related to the sense menu are described in [Sense Menu plugin](doc/sense_menu.plugin.md).
+Other classes related to the sense menu are described in [Sense Menu plugin](sense_menu.plugin.md).
 
 #### Methods
 
