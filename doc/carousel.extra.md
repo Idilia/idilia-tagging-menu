@@ -1,6 +1,6 @@
 # Carousel View
 
-Sense alternatives are by default presented in a wrapping grid layout. It is possible to show the options in a carousel. The online tagging menu demo can be run with the carousel option (default) and without using the following links:
+Sense alternatives are by default presented in a wrapping responsive grid layout. It is also possible to display the sense tiles in a carousel. The online tagging menu demo can be run with the carousel option (default) and without using the following links:
 
 * Without carousel view: [http://api.idilia.com/TaggingMenuDemo?carousel=0](http://api.idilia.com/TaggingMenuDemo?carousel=0)
 * With carousel view:  [http://api.idilia.com/TaggingMenuDemo](http://api.idilia.com/TaggingMenuDemo)
@@ -29,3 +29,8 @@ git clone http://github.com/Idilia/OwlCarousel
  ```
 
 This adds a toggle option to the senses view which chooses between grid and carousel view.
+
+3. Opening the menu in carousel view
+
+ To open the menu in a carousel view, set sense menu option 'view' to 'grid' when creating
+either a tagging menu or a sense menu.

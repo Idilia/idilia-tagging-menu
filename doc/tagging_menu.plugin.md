@@ -1,8 +1,8 @@
 ## Tagging Menu
 
-The Tagging Menu jQuery plugin enables assigning word senses to one or more consecutive words (e.g., a search query) in a web application. The sense for each word is selected using the [Sense Menu jQuery plugin](sense_menu.md). The plugin manages the grouping of words into multi-word expressions or breaking-up multi-word expressions.
+The Tagging Menu jQuery plugin enables assigning word senses to one or more consecutive words (e.g., a search query) in a web application. The sense for each word is selected using the [Sense Menu jQuery plugin](sense_menu.plugin.md). The plugin manages the grouping of words into multi-word expressions or breaking-up multi-word expressions.
 
-This plugin is used in conjunction with Idilia's [semantic API](http://www.idilia.com/developer/). The API is used to retrieve the HTML representing the text to tag and the possible senses for each word. The plugin is used to select the senses.
+This plugin is used in conjunction with Idilia's semantic analysis [text/disambiguate](http://www.idilia.com/developer/sense-analysis/api/text-disambiguate/) API and Idilia's [kb/tagging_menu](http://www.idilia.com/developer/language-graph/api/kb-tagging-menu/) API. The semantic API analyzes the text to determine possible senses of each word and the second API generates the HTML representing the text to tag and a sense menu for each word. The plugin is used to select the senses.
 
 For a live example, see the [Tagging Menu Demo](http://api.idilia.com/TaggingMenuDemo). There are two different examples, one to tag [normal text](http://api.idilia.com/TaggingMenuDemo/Text) and another to tag [search expression](http://api.idilia.com/TaggingMenuDemo/Query).
 
@@ -13,7 +13,7 @@ This document describes the most likely usage of Idilia's tagging plugins. It is
 * [Sense Menu jQuery plugin](sense_menu.plugin.md) - provides single word sense tagging
 * [Sense Card jQuery plugin](sense_card.plugin.md) - provides sense card information functionality
 
-Moreover, optional functionality is documented independently.
+Optional functionality is documented separately:
 
 * [Carousel Sense Selection](carousel.extra.md) - adds carousel sense selection as an alternative to the default grid layout.
 
@@ -59,7 +59,7 @@ The simplest integration will be described here. Add-ons are documented in their
  1. Use the [text/disambiguate API](http://www.idilia.com/developer/sense-analysis/api/text-disambiguate/) to perform a sense analysis of the words to tag. This identifies the sense of each word, their alternate senses, and possible groupings for multi-word expressions.
  2. Use the [kb/tagging_menu API](http://www.idilia.com/developer/language-graph/api/kb-tagging-menu/) to obtain HTML for the words and their menus, supplying the results of the sense analysis.
 
- You will want to perform these two steps on an application server because your secret credentials are needed for both operations. For a Ruby coding example, see [tagging_menu.rb](https://github.com/Idilia/idilia-api-samples/blob/master/ruby/kb/tagging_menu.rb). There also is a [java SDK](https://github.com/Idilia/idilia-java-sdk) available on Github.
+ You will want to perform these two steps on an application server because your secret credentials are needed for both operations. For a Ruby coding example, see [tagging_menu.rb](https://github.com/Idilia/idilia-api-samples/blob/master/ruby/kb/tagging_menu.rb). For a java example, see [TaggingMenu.java](https://github.com/Idilia/idilia-api-samples/blob/master/java/main/java/com/idilia/services/examples/menu/TaggingMenu.java) or [TaggingMenuAsync.java](https://github.com/Idilia/idilia-api-samples/blob/master/java/main/java/com/idilia/services/examples/menu/TaggingMenuAsync.java).
 
  For the second operation, the server returns a JSON structure with two fields, both containing HTML:
 
@@ -100,9 +100,9 @@ The simplest integration will be described here. Add-ons are documented in their
 
  When a sense is selected, the callback sensesel is invoked with the following attributes:
 
- * __$selTile__: The newly selected sense tile (element with class idl-tile-container);
- * __$prevTile__: Previously selected sense tile if any;
- * __$text__: Text element for which a sense was selected;
+ * __$selTile__: jQuery element of the newly selected sense tile (element with class idl-tile-container);
+ * __$prevTile__: jQuery element of the previously selected sense tile if any;
+ * __$text__: jQuery element of the text element for which a sense was selected;
  * __selStart__: Starting word offset of selected sense;
  * __selEnd__: Offset one past the last offset of the new sense. selEnd – selStart is the number of words used by the sense;
  * __prevStart__, prevEnd: Offsets for the previous sense
@@ -118,20 +118,18 @@ The following options can be provided when instantiating the tagging menu:
 
 Option | Description
 ------ | -----------
-menus  | jquery object for the menus anchor above e.g. ```$("#menus")```
+menus  | jquery object for the element holding the sense menus. e.g. ```$("#menus")```
 wordsContent ("text" or "tile", default: "text")| "#words" div content type. The tagging menu will either show text or sense cards
 hideUntaggable (_boolean_, default: false)| parts of the text can be identified as untaggable (e.g. operators in a search expression). These can be hidden if this options is set to true
-useToolTip (_boolean_, default: true)| Whether to display a sense card when mousing over word. Default is true. Set to false if you don’t have Bootstrap popover. See [popover documentation](popover.extra.md)
-informOnOther (_boolean_, default: true) | notify Idilia if "other sense" selection is made. In some cases the sense inventory will be missing a sense and this will be the only option
+useToolTip (_boolean_, default: true)| Whether to display a sense card when mousing over word. Default is true. Set to false if you don’t have Bootstrap popover.
+informOnOther (_boolean_, default: true) | notify Idilia if "other sense" selection is made. In some cases the sense inventory will be missing a sense and this will be the only option. Notifying Idilia enables us to improve our sense inventory.
 closeOnSelect (_boolean_, default: true) | close the sense options view on sense selection
 preselect ('sa' (default), 'mono' or 'none')| Determines if a sense is preselected for a word. ‘sa’ uses the result of Sense Analysis (default); ‘mono’ preselects when a single sense is possible; ‘none’ disables pre-selection.
 sensesel | Callback function invoked on a sense selection
 sensedesel | Callback function invoked on a sense deselection
-createsel | Callback function invoked on a create sense
 beforeOpen | Callback function invoked before a menu is opened
 afterClose | Callback function invoked after a menu is closed
 senseMenuOptions | Options for the sense menu of each word (e.g. 'view'). See [Sense Menu plugin](sense_menu.plugin.md) for details.
-apiUrl ( _string_, default: 'https://api.idilia.com/1/kb') | URL to use to get sense cards
 
 #### Styling
 
@@ -145,11 +143,11 @@ idl-tagged |	Assigned to a .idl-menu-word when a sense is selected for it. Eithe
 idl-mantagged	| Assigned to a .idl-menu-word when a sense is manually assigned for it.
 idl-untagged	| Assigned to a .idl-menu-word which requires a sense.
 
-Other classes related to the sense menu are described in [Sense Menu plugin](sense_menu.plugin.md).
+Other classes related to the sense menu are described in [Sense Menu plugin](sense_menu.plugin.md) and in [Sense Card plugin](sense_card.plugin.md).
 
 #### Methods
 
-The widget instance can be retrieved from the attached element using data attribute “taggingMenu” (e.g., var tm = $(…).data(“taggingMenu”); ). The following methods are available:
+The widget instance can be retrieved from the attached element using data attribute "taggingMenu" (e.g., var tm = $(…).data("taggingMenu"); ). The following methods are available:
 
 Method | Description
 ------ | -----------
@@ -157,17 +155,7 @@ text() | Returns the text of the tagged words (as one string).
 senses() | Returns the sense tagged expression (as one string). Words with no senses are included as is.
 sensesAsObjects() | Returns text and tagging as an array. It contains all the information required to render the original text and the selected senses
 close() | Closes the menu.
-deselect($menu-word) | Untags a word. I.e., Removes the sense assigned to it. Argument is a span with class “idl-menu-word”.
+deselect($menu-word) | Untags a word. I.e., Removes the sense assigned to it. Argument is a span with class "idl-menu-word".
 deselectAll() | Untags all the words.
 destroy() | Removes the widget instance.
 
-#### Controlling Taggable Words within an Expression
-
-Not all words in an expression have a sense menu:
-* Punctuation and unambiguous closed-class word: Never any menu for these.
-* Words with a single sense: No menu when using “filters=noOther,noDynamic” when calling kb/tagging_menu.
-* Words disabled using markup. See below.
-
-When a word does not have a menu, it is considered tagged and property allset of the sensesel callback is computed without considering them. Method senses() always returns their word in the tagged expression.
-
-A word can be disabled explicitly using markup. This is used for example when discarding boolean operators in search expressions. Wrap the words to discard within an HTML span with attribute data-idl-fsk=”ina” and submit the expression with parameter textMime set to text/query-html.

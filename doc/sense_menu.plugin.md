@@ -9,6 +9,10 @@ See it live at:
 * [Sense Menu Plugin Demo](http://api.idilia.com/TaggingMenuDemo/SenseMenu?carousel=0)
 * [Sense Menu Plugin Demo with Carousel option view](http://api.idilia.com/TaggingMenuDemo/SenseMenu)
 
+Optional functionality is documented separately:
+
+* [Carousel Sense Selection](carousel.extra.md) - adds carousel sense selection as an alternative to the default grid layout.
+
 ### Getting Started
 
 1. Get files
@@ -74,20 +78,18 @@ See it live at:
  ```
 
 When a sense is selected, the callback sensesel is invoked with the following attributes:
-* __$selTile__: The newly selected sense tile (element with class idl-tile-container);
-* __$prevTile__: Previously selected sense tile if any;
+* __$selTile__: jQuery element of the newly selected sense tile (element with class idl-tile-container);
+* __$prevTile__: jQuery element of the previously selected sense tile if any;
 
 ### Customize
 
 #### Options
-Customize
 
 The following options can be provided when instantiating the sense menu:
 
 Option|Description
 ---|----
 sensesel|	Callback function invoked on a sense selection
-createsel | Callback function invoked on a sense creation
 gridTileContainerClass|	CSS classes to assign to a sense tile when switching to grid mode.
 definitionIconClasses	|CSS classes to represent the icon for showing/hiding the detailed definition of a sense.
 view ('grid' (default) or 'carousel') |	Opening view for the menu.
@@ -106,8 +108,10 @@ idl-carousel|Assigned to the menu when in carousel mode
 hidden|Assigned to the menu when closed
 active|Assigned to selected group in the nav bar and to the active view control button.
 
+The classes related to the rendering of sense tiles are described in [Sense Card plugin](sense_card.plugin.md).
+
 ### Methods
-The widget instance can be retrieved from the attached element using data attribute “senseMenu” (e.g., var sm = $(…).data(“senseMenu”); ). The following methods are available:
+The widget instance can be retrieved from the attached element using data attribute "senseMenu" (e.g., var sm = $(…).data("senseMenu"); ). The following methods are available:
 
 Method|Description
 ---|---

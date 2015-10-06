@@ -6,7 +6,7 @@ For a live example, see Idilia's [Tagging Menu Demo](http://api.idilia.com/Taggi
 
 ### Documentation
 
-Three distinct plugins are provided, each one built on top of the next. Each are documented separately:
+Three distinct plugins are provided, each one built on top of the next. Each is documented separately:
 
 * [Tagging Menu jQuery plugin](doc/tagging_menu.plugin.md) - text sense tagging
 * [Sense Menu jQuery plugin](doc/sense_menu.plugin.md) - single word sense tagging

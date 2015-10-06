@@ -40,13 +40,13 @@ See a few examples of the Sense Card Plugin for [Tide the detergent](http://api.
  <div id="card" />
  ```
 
-4. Obtain the menu
+4. Obtain a sense card
 
- Use the [kb/sense_card API](http://www.idilia.com/developer/language-graph/api/kb-sense-card/) to obtain a sense menu. You can do this on an application server or from the client using JSONP. The following performs a JSONP request, opens the menu, and closes it on a sense selection.
+ Use the [kb/sense_card API](http://www.idilia.com/developer/language-graph/api/kb-sense-card/) to obtain a sense card. You can do this on an application server or from the client using JSONP. The following requests a card using a JSONP request and loads it in the document.
 
  ```javascript
- /* An event handler assigned to a button for opening a sense menu */
- createMenu = function (event) {
+ /* An event handler assigned to a button for fetching a sense card */
+ getCardHandler = function (event) {
    var word = $("#wordField").val();
    $.ajax({
      data: { text : word, template : 'image_v3' },
@@ -55,26 +55,26 @@ See a few examples of the Sense Card Plugin for [Tide the detergent](http://api.
      url: 'http://api.idilia.com/1/kb/sense_card.js',
      dataType: 'json'
    }).done(function (data) {
-     /* Retrieve the HTML and open the menu around this element */
      $("#card").html(data["card"]);
-     $("#card").children().first().senseCard().data("senseMenu");
+     $("#card").children().first().senseCard();
    }).fail(function () {
    /* ajax error handling */
    });
  }
  ```
 
-When a sense is selected, the callback sensesel is invoked with the following attributes:
-* __$selTile__: The newly selected sense tile (element with class idl-tile-container);
-* __$prevTile__: Previously selected sense tile if any;
+### Styling
 
-### Customize
+ The sense cards use multiple classes in their representation. All classes start with prefix _idl-_. The template requested is one of the class assigned to the top level element (_idl-tile-container_). There are also other class values for the type of card generated:
+
+Class|Description
+---|---
+idl-tile-text| A sense tile with no image or icon.
+idl-tile-icon| A sense tile without an image but where an icon is used to represent the sense
+idl-tile-img| A sense tile containing an image.
+
 
 #### Options
-Customize
 
-The following options can be provided when instantiating the sense menu:
+There are no options for this plugin.
 
-Option|Description
----|----
-template (image_v3, menu_image_v3)|	layout to use. image_v3 is horizontal, menu_image_v3 is vertical
