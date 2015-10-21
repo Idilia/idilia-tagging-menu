@@ -5,6 +5,7 @@
     "node": ">= 0.8.0"
   },
   "devDependencies": {
+    "grunt-contrib-copy": "^0.8.2"
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-qunit": "~0.2.0",
     "grunt-contrib-concat": "~0.3.0",
