@@ -123,7 +123,7 @@
   margin-top: 4px;
 }
 
-.idl-sensemenu.idl-grid .idl-sensetile {
+.idl-sensemenu .idl-tile-container {
   cursor: pointer;
 }
 
@@ -226,8 +226,34 @@ div.idl-lgcc-outer {
   border-radius: 6px;
 }
 
-.idl-sensemenu.idl-grid .idl-tile-create .idl-sensetile {
- cursor: default;
+.idl-tile-create .idl-sensetile {
+  border-style: dashed;
+  border-width: 2px;
+  color: #aaa;
+}
+
+.idl-tile-create .idl-sensetile:hover {
+  border-style: solid;
+  border-width: 2px;
+  color: #666666;
+} 
+
+.idl-add-sense-button::after {
+  background: #E5E5E5;
+  background: rgba(153, 153, 153, 0.1);
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  display: inline-block;
+  content: '+';
+  -webkit-font-smoothing: antialiased;
+  font: 400 100px/100px times;
+  width: 100px;
+  height: 100px;
+  color: #999;
+  position: absolute;
+  top: 20px;
+  left: 48%;
+  margin-left: -50px;
 }
 
 .idl-tile-create .idl-create-links p {
@@ -241,9 +267,12 @@ div.idl-lgcc-outer {
  list-style:none;
  padding-left:0;
 }
+
 .idl-tile-create li {
  margin-left:15px;
 }
+
 .idl-tile-create .idl-create-link-more {
  margin-top: 10px;
 }
+
