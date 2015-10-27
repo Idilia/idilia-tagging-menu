@@ -17,7 +17,7 @@
 
 .idl-menu-words.idl-text-mode .idl-menu-word {
   text-decoration: underline;
-  top: 0px;
+  top: 0;
 }
 
 .idl-menu-words.idl-text-mode .idl-menu-word.idl-tagged {

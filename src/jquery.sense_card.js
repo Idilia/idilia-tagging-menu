@@ -28,8 +28,6 @@
  * THE SOFTWARE.
  */
 
-; /* Intentional, whatever linting reports */
-
 if (typeof Object.create !== "function") {
   Object.create = function (obj) {
     function F() {}
@@ -50,7 +48,7 @@ if (typeof Object.create !== "function") {
        */
       init : function (options, el) {
         var base = this;
-        base.$elem = $(el)
+        base.$elem = $(el);
         base.options = $.extend({}, $.fn.senseCard.options, options);
         
         base._create();

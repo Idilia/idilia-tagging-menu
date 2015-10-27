@@ -8,9 +8,6 @@
  box-sizing: border-box;
 }
 
-.idl-tile-container {
-}
-
 .idl-sensetile {
  color: #666;
  font-size: 13px;
@@ -34,10 +31,6 @@
  margin: -5px 0 10px 0;
 }
 
-/* description */
-.idl-sensetile .idl-def {
-}
-
 .idl-sensetile .idl-def p {
  font-size: inherit;
  font-weight: inherit;
@@ -48,7 +41,7 @@
 
 .idl-icon-container, .idl-img-container {
  float: left;
- margin: 0 10px 0px 0;
+ margin: 0 10px 0 0;
 }
 
 /* icon */
@@ -134,7 +127,7 @@
  background-color: rgba(51,51,51,0.8);
  color:white;
  line-height: 100%;
- padding: 0px 4px;
+ padding: 0 4px;
  overflow:hidden;
  width:100%;
 }

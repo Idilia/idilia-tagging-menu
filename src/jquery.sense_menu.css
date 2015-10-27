@@ -16,7 +16,7 @@
 }
 
 /*
- * Styles for the navigation bar */
+ * Styles for the navigation bar
  */
 
 .idl-sensemenu .idl-navbar {
@@ -46,16 +46,13 @@
   background-position: 7px 5px;
 }
 
-.idl-view-ctrls button.idl-to-carousel {
+.idl-view-ctrls .idl-to-carousel {
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIGZpbGw9IiM2NjYiPjxwb2x5Z29uIHBvaW50cz0iMCw3IDEsNyAxLDEyIDAsMTIiLz48cG9seWdvbiBwb2ludHM9IjIsNyA1LDcgNSwxMiAyLDEyIi8+PHBvbHlnb24gcG9pbnRzPSI2LDcgOSw3IDksMTIgNiwxMiIvPjxwb2x5Z29uIHBvaW50cz0iMTAsNyAxMyw3IDEzLDEyIDEwLDEyIi8+PHBvbHlnb24gcG9pbnRzPSIxNCw3IDE1LDcgMTUsMTIgMTQsMTIiLz48L3N2Zz4=") !important;
 }
 
-.idl-view-ctrls button.idl-to-grid {
+.idl-view-ctrls .idl-to-grid {
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIGZpbGw9IiM2NjYiPjxwb2x5Z29uIHBvaW50cz0iMCwwIDMsMCAzLDUgMCw1Ii8+PHBvbHlnb24gcG9pbnRzPSI0LDAgNywwIDcsNSA0LDUiLz48cG9seWdvbiBwb2ludHM9IjgsMCAxMSwwIDExLDUgOCw1Ii8+PHBvbHlnb24gcG9pbnRzPSIxMiwwIDE1LDAgMTUsNSAxMiw1Ii8+PHBvbHlnb24gcG9pbnRzPSIwLDYgMyw2IDMsMTEgMCwxMSIvPjxwb2x5Z29uIHBvaW50cz0iNCw2IDcsNiA3LDExIDQsMTEiLz48cG9seWdvbiBwb2ludHM9IjgsNiAxMSw2IDExLDExIDgsMTEiLz48cG9seWdvbiBwb2ludHM9IjEyLDYgMTUsNiAxNSwxMSAxMiwxMSIvPjxwb2x5Z29uIHBvaW50cz0iMCwxMiAzLDEyIDMsMTMgMCwxMyIvPjxwb2x5Z29uIHBvaW50cz0iNCwxMiA3LDEyIDcsMTMgNCwxMyIvPjxwb2x5Z29uIHBvaW50cz0iOCwxMiAxMSwxMiAxMSwxMyA4LDEzIi8+PHBvbHlnb24gcG9pbnRzPSIxMiwxMiAxNSwxMiAxNSwxMyAxMiwxMyIvPjwvc3ZnPg==") !important;
   background-position: 7px 9px;
-}
-
-.idl-sensemenu .idl-nav-grps li a {
 }
 
 .idl-sensemenu .idl-nav-grps .idl-grp-cnt {
@@ -64,7 +61,6 @@
  position: relative;
  padding: 0.5em 0 0 0.5em;
  margin: -0.25em 0;
- position: relative;
  top: -0.8em;
 }
 
@@ -116,7 +112,7 @@
 
 .idl-sensemenu.idl-grid .idl-tile-container {
   float: left;
-  margin: 0px 5px 10px 5px;
+  margin: 0 5px 10px 5px;
 }
 
 .idl-sensemenu.idl-grid .idl-sensetiles {
@@ -152,10 +148,10 @@
 /*  background: none;*/
   opacity: 0.2;
   padding: 3px 0 0 0;
-  margin: 0px;
-  border-radius: 0px;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
+  margin: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
   border: none;
   height: 159px;
   background: #DDD;
@@ -193,11 +189,11 @@
 }
 
 /* Styles for adding a sense */
-body.idl-lgcc-open {
+.idl-lgcc-open {
  overflow:hidden;
 }
 
-div.idl-lgcc-outer {
+.idl-lgcc-outer {
  overflow-x:hidden;
  overflow-y:auto;
  opacity:1;
@@ -210,6 +206,7 @@ div.idl-lgcc-outer {
  padding-top: 40px;
  width: 100%;
  height: 100%;
+ background: rgb(0, 0, 0);
  background: rgba(0, 0, 0, 0.6);
 }
 
@@ -222,7 +219,7 @@ div.idl-lgcc-outer {
 .idl-lgcc-ctr iframe {
   height: 100%;
   width: 100%;
-  border: 0px;
+  border: 0;
   border-radius: 6px;
 }
 
@@ -239,8 +236,8 @@ div.idl-lgcc-outer {
 } 
 
 .idl-add-sense-button::after {
-  background: #E5E5E5;
-  background: rgba(153, 153, 153, 0.1);
+ background: rgb(153, 153, 153);
+ background: rgba(153, 153, 153, 0.1);
   -webkit-border-radius: 50%;
   border-radius: 50%;
   display: inline-block;
@@ -254,6 +251,10 @@ div.idl-lgcc-outer {
   top: 20px;
   left: 48%;
   margin-left: -50px;
+}
+
+.idl-sensetile:hover .idl-add-sense-button::after {
+ background: #E5E5E5;
 }
 
 .idl-tile-create .idl-create-links p {

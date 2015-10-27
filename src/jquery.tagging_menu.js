@@ -68,8 +68,6 @@
  * THE SOFTWARE.
  */
 
-; /* Intentional, whatever linting reports */
-
 if (typeof Object.create !== "function") {
   Object.create = function (obj) {
     function F() {}
@@ -278,7 +276,7 @@ if (typeof Object.create !== "function") {
         
         if (enable)
         {
-          if (_htmlClickEnabledCount == 0) {
+          if (_htmlClickEnabledCount === 0) {
             $("html").on("click", base._htmlClickHandler);
           }
           _htmlClickEnabledCount++;
@@ -286,7 +284,7 @@ if (typeof Object.create !== "function") {
         else
         {
           --_htmlClickEnabledCount;
-          if (_htmlClickEnabledCount == 0) {
+          if (_htmlClickEnabledCount === 0) {
             $("html").off("click", base._htmlClickHandler);
           }
         }
@@ -543,7 +541,7 @@ if (typeof Object.create !== "function") {
         var res = [];
         var pathEnd = 0;
         var text = '';
-        var sense = undefined;
+        var sense;
         var elements = base.$elem.children();
         for (var i = 0, iEnd = elements.length; i < iEnd; ++i) {
           var $e = $(elements[i]);

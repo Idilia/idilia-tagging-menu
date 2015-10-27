@@ -117,8 +117,6 @@
  * THE SOFTWARE.
  */
 
-; /* Intentional, whatever linting reports */
-
 if (typeof Object.create !== "function") {
   Object.create = function (obj) {
     function F() {}
@@ -602,6 +600,10 @@ if (typeof Object.create !== "function") {
           alert(errMsg);
         }).always(function () {
           $card.css("cursor", cursorVal);
+          var $def = $card.find('.idl-def');
+          if ($def.is(":visible")) {
+            $def.hide();
+          }
         });
       },
       
