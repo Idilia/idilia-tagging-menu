@@ -173,7 +173,7 @@
  box-sizing: border-box;
 }
 
-.idl-menu-sensecard.idl-tile-other p {
+.idl-menu-sensecard.idl-tile-other .idl-large-def {
  text-align: center;
  font-size: 2em;
 }
