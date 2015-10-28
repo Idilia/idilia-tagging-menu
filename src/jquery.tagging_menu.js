@@ -1,6 +1,6 @@
 /**
  * JQueryUI widget for a block of text with many words to tag
- * Version: $version
+ * Version: 1.0.8
  * 
  * Widget should be attached the the div containing the words to which a sense must be given.
  * 

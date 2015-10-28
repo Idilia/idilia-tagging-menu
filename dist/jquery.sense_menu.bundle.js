@@ -1,6 +1,6 @@
 /**
  * JQuery widget for animating a sense card
- * Version: $version
+ * Version: 1.0.8
  * 
  * Widget should be attached to the div containing the sensecard (.idl-tile-container)
  * 
@@ -198,9 +198,10 @@ if (typeof Object.create !== "function") {
     lgcc: 'https://lgcc.idilia.com/lgcc/'
   };
 }(jQuery, window, document));
+
 /**
  * JQuery widget for a sense menu
- * Version: $version
+ * Version: 1.0.8
  * 
  * This menu enables the user to switch between a grid view and a carousel view.
  * The carousel is provided by owl-carousel.

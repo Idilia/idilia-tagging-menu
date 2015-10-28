@@ -1,6 +1,6 @@
 {
-  "name": "jquery-plugin",
-  "version": "0.0.0-ignored",
+  "name": "idilia-tagging-menu",
+  "version": "1.0.8",
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -14,6 +14,7 @@
     "grunt-contrib-clean": "~0.6.0",
     "grunt": "~0.4.5",
     "grunt-contrib-csslint": "~0.5.0",
-    "grunt-contrib-cssmin": "~0.13.0"
+    "grunt-contrib-cssmin": "~0.13.0",
+    "grunt-bump": "~0.6.0"
   }
 }

@@ -7,6 +7,26 @@ module.exports = function(grunt) {
   grunt.initConfig({
     // Metadata.
     pkg: grunt.file.readJSON('bower.json'),
+
+    bump: {
+      options: {
+        files: ['package.json', 'bower.json', 'src/*.js'],
+        updateConfigs: [],
+        commit: true,
+        commitMessage: 'Release v%VERSION%',
+        commitFiles: ['package.json', 'bower.json', 'src/*.js'],
+        createTag: false,
+        tagName: 'v%VERSION%',
+        tagMessage: 'Version %VERSION%',
+        push: false,
+        pushTo: 'upstream',
+        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
+        globalReplace: false,
+        prereleaseName: false,
+        regExp: false
+      }
+    },
+
     // Task configuration.
     clean: {
       files: ['dist']
@@ -90,6 +110,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-bump');
 
   // Default task.
   grunt.registerTask('default', ['csslint', 'jshint', 'clean', 'copy', 'concat', 'cssmin', 'uglify']);

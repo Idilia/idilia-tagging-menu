@@ -1,6 +1,6 @@
 /**
  * JQuery widget for animating a sense card
- * Version: $version
+ * Version: 1.0.8
  * 
  * Widget should be attached to the div containing the sensecard (.idl-tile-container)
  * 
