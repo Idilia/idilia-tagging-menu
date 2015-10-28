@@ -117,8 +117,6 @@
  * THE SOFTWARE.
  */
 
-; /* Intentional, whatever linting reports */
-
 if (typeof Object.create !== "function") {
   Object.create = function (obj) {
     function F() {}
@@ -144,6 +142,10 @@ if (typeof Object.create !== "function") {
         base.navE = null;         /* element holding the navigator bar when one is present */
         base.carouselW = null;    /* carousel widget when instantiated */
         base.view = base.options.view; /* current view if/when opened, initialized with options value */
+        
+        base.nTiles = null;       /* number of tiles in the menu */
+        base.tileWidth = null;    /* width of one tile */
+        base.widthInTiles = null; /* number of tiles shown in each row */
         
         base._create();
       },
@@ -271,6 +273,9 @@ if (typeof Object.create !== "function") {
           var $card = $(this);
           if (!$card.hasClass("idl-tile-create")) {
             base.select($card);
+          } else {
+            base._addSenseCardEH(event, $card);
+            event.stopPropagation();
           }
           event.preventDefault();
         });
@@ -280,14 +285,7 @@ if (typeof Object.create !== "function") {
         if ($addLinks.size() > 0) {
           /* Handler when selecting a create link */
           $addLinks.on('click', 'a', function (event) {
-            var $link = $(this);
-            if ($link.parent().hasClass('idl-create-link-more')) {
-              /* Reveal additional links when idl-create-link-more */
-              $link.parent().hide().nextAll().show();
-            } else {
-              var $card = $link.closest(".idl-tile-container");
-              base._senseCreateEH($card, $link);
-            }
+            base._senseCreateEH($(this));
             event.preventDefault();
             event.stopPropagation();
           });
@@ -355,7 +353,7 @@ if (typeof Object.create !== "function") {
         var base = this;
         var parentWidth = base.$elem.parent().width();
 
-        if (typeof base.tileWidth === 'undefined')
+        if (base.tileWidth === null)
         {
           // First time this is displayed, need to unhide to get tileWidth
           var senseTiles = base.$elem.find('.idl-sensetile');
@@ -524,36 +522,52 @@ if (typeof Object.create !== "function") {
       },
       
       /**
-       * Event handler for request to expand or close the definition.
-       * $tgl is the element with class idl-def-tgl
+       * Event handler when clicking on the add sense card
+       * $card: the card clicked
        */
-      _toggleDefEH : function ($tgl) {
+      _addSenseCardEH: function(event, $card) {
         var base = this;
-        var $st = $tgl.closest('.idl-sensetile');
-        var $def = $st.children('.idl-def');
-        var showingDefn = $def.is(":visible");
-        if (showingDefn) {
-          $def.slideUp(300);
-          $tgl.removeClass('idl-def-hide-icon').addClass('idl-def-show-icon');
-        } else {
+        
+        var $addLinks  = $card.find('.idl-create-link');
+        if ($addLinks.size() === 1) {
+          /* A single word link, we can trigger it immediately */
+          base._senseCreateEH($addLinks.first());
+          return;
+        }
+        
+        var $def = $card.find('.idl-def');
+        if (!$def.is(":visible")) {
           $def.slideDown(300);
-          $tgl.removeClass('idl-def-show-icon').addClass('idl-def-hide-icon');
+          $card.css("cursor", "default");
         }
       },
       
       /** 
-       * Event handler for a request to create a new sense
-       * $card: The 'add sense card' (.idl-tile-container .idl-tile-create)
-       * $link: optional, the link clicked
+       * Event handler when clicking on a link inside the add sense card
        */
-      _senseCreateEH: function($card, $link) {
-        var base = this;
+      _senseCreateEH: function($link) {
+        
+        if ($link.parent().hasClass('idl-create-link-more')) {
+          /* Reveal additional links when idl-create-link-more */
+          $link.parent().hide().nextAll().show();
+          return;
+        }
         
         var errMsg="This functionality is not available at this time. Please retry later.";
         if (!window.com || !com.idilia || !com.idilia.lgcc) {
           alert(errMsg);
           return;
         }
+        
+        var base = this;
+        var $card = $link.closest(".idl-tile-container");
+        
+        /* 
+         * Change the cursor to progress. Save original because it can be either
+         * a pointer when a single link or a cursor when multiple links.
+         */
+        var cursorVal = $card.css("cursor");
+        $card.css("cursor", "progress");
         
         /* Read the word from the title of the card */
         var text = $link.text();
@@ -562,6 +576,11 @@ if (typeof Object.create !== "function") {
         var custId = $card.data("customer");
         var auth = $card.data("auth-token");
         
+        /* 
+         * Invoke the function loaded from the LGCC web site.
+         * This creates the frame and returns a promise which is signaled
+         * when the frame interaction completes (i.e., new meaning is defined).
+         */
         com.idilia.lgcc.createMeaning(this.$elem, this.options.lgcc, {
           customerId: custId, /* id customer adding sense */
           token: auth,  /* authentication token */
@@ -571,12 +590,20 @@ if (typeof Object.create !== "function") {
           v: 1          /* version number of protocol used by client */
         }).done(function (res) {
           if (res && res['card']) {
+            base.nTiles = base.nTiles + 1;
+            base._refreshWidth();
             var $newCard = $(res['card']);
             $card.before($newCard);
             $newCard.senseCard({lgcc: base.options.lgcc});
           }
         }).fail(function (res) {
           alert(errMsg);
+        }).always(function () {
+          $card.css("cursor", cursorVal);
+          var $def = $card.find('.idl-def');
+          if ($def.is(":visible")) {
+            $def.hide();
+          }
         });
       },
       

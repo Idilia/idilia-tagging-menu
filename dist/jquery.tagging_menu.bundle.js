@@ -28,8 +28,6 @@
  * THE SOFTWARE.
  */
 
-; /* Intentional, whatever linting reports */
-
 if (typeof Object.create !== "function") {
   Object.create = function (obj) {
     function F() {}
@@ -50,7 +48,7 @@ if (typeof Object.create !== "function") {
        */
       init : function (options, el) {
         var base = this;
-        base.$elem = $(el)
+        base.$elem = $(el);
         base.options = $.extend({}, $.fn.senseCard.options, options);
         
         base._create();
@@ -131,6 +129,9 @@ if (typeof Object.create !== "function") {
           return;
         }
         
+        /* Change the cursor to progress */
+        $card.css("cursor", "progress");
+        
         var sk = $card.data("fsk");
         var len = $card.data("len") || 1;
         var tmplt = $card.attr("class").match(/idl-tmplt-[\w-]*\b/)[0].substring(10);
@@ -156,6 +157,8 @@ if (typeof Object.create !== "function") {
           }
         }).fail(function (res) {
           alert(errMsg);
+        }).always(function () {
+          $card.css("cursor", "");
         });
       },
       
@@ -314,8 +317,6 @@ if (typeof Object.create !== "function") {
  * THE SOFTWARE.
  */
 
-; /* Intentional, whatever linting reports */
-
 if (typeof Object.create !== "function") {
   Object.create = function (obj) {
     function F() {}
@@ -341,6 +342,10 @@ if (typeof Object.create !== "function") {
         base.navE = null;         /* element holding the navigator bar when one is present */
         base.carouselW = null;    /* carousel widget when instantiated */
         base.view = base.options.view; /* current view if/when opened, initialized with options value */
+        
+        base.nTiles = null;       /* number of tiles in the menu */
+        base.tileWidth = null;    /* width of one tile */
+        base.widthInTiles = null; /* number of tiles shown in each row */
         
         base._create();
       },
@@ -468,6 +473,9 @@ if (typeof Object.create !== "function") {
           var $card = $(this);
           if (!$card.hasClass("idl-tile-create")) {
             base.select($card);
+          } else {
+            base._addSenseCardEH(event, $card);
+            event.stopPropagation();
           }
           event.preventDefault();
         });
@@ -477,14 +485,7 @@ if (typeof Object.create !== "function") {
         if ($addLinks.size() > 0) {
           /* Handler when selecting a create link */
           $addLinks.on('click', 'a', function (event) {
-            var $link = $(this);
-            if ($link.parent().hasClass('idl-create-link-more')) {
-              /* Reveal additional links when idl-create-link-more */
-              $link.parent().hide().nextAll().show();
-            } else {
-              var $card = $link.closest(".idl-tile-container");
-              base._senseCreateEH($card, $link);
-            }
+            base._senseCreateEH($(this));
             event.preventDefault();
             event.stopPropagation();
           });
@@ -552,7 +553,7 @@ if (typeof Object.create !== "function") {
         var base = this;
         var parentWidth = base.$elem.parent().width();
 
-        if (typeof base.tileWidth === 'undefined')
+        if (base.tileWidth === null)
         {
           // First time this is displayed, need to unhide to get tileWidth
           var senseTiles = base.$elem.find('.idl-sensetile');
@@ -721,36 +722,52 @@ if (typeof Object.create !== "function") {
       },
       
       /**
-       * Event handler for request to expand or close the definition.
-       * $tgl is the element with class idl-def-tgl
+       * Event handler when clicking on the add sense card
+       * $card: the card clicked
        */
-      _toggleDefEH : function ($tgl) {
+      _addSenseCardEH: function(event, $card) {
         var base = this;
-        var $st = $tgl.closest('.idl-sensetile');
-        var $def = $st.children('.idl-def');
-        var showingDefn = $def.is(":visible");
-        if (showingDefn) {
-          $def.slideUp(300);
-          $tgl.removeClass('idl-def-hide-icon').addClass('idl-def-show-icon');
-        } else {
+        
+        var $addLinks  = $card.find('.idl-create-link');
+        if ($addLinks.size() === 1) {
+          /* A single word link, we can trigger it immediately */
+          base._senseCreateEH($addLinks.first());
+          return;
+        }
+        
+        var $def = $card.find('.idl-def');
+        if (!$def.is(":visible")) {
           $def.slideDown(300);
-          $tgl.removeClass('idl-def-show-icon').addClass('idl-def-hide-icon');
+          $card.css("cursor", "default");
         }
       },
       
       /** 
-       * Event handler for a request to create a new sense
-       * $card: The 'add sense card' (.idl-tile-container .idl-tile-create)
-       * $link: optional, the link clicked
+       * Event handler when clicking on a link inside the add sense card
        */
-      _senseCreateEH: function($card, $link) {
-        var base = this;
+      _senseCreateEH: function($link) {
+        
+        if ($link.parent().hasClass('idl-create-link-more')) {
+          /* Reveal additional links when idl-create-link-more */
+          $link.parent().hide().nextAll().show();
+          return;
+        }
         
         var errMsg="This functionality is not available at this time. Please retry later.";
         if (!window.com || !com.idilia || !com.idilia.lgcc) {
           alert(errMsg);
           return;
         }
+        
+        var base = this;
+        var $card = $link.closest(".idl-tile-container");
+        
+        /* 
+         * Change the cursor to progress. Save original because it can be either
+         * a pointer when a single link or a cursor when multiple links.
+         */
+        var cursorVal = $card.css("cursor");
+        $card.css("cursor", "progress");
         
         /* Read the word from the title of the card */
         var text = $link.text();
@@ -759,6 +776,11 @@ if (typeof Object.create !== "function") {
         var custId = $card.data("customer");
         var auth = $card.data("auth-token");
         
+        /* 
+         * Invoke the function loaded from the LGCC web site.
+         * This creates the frame and returns a promise which is signaled
+         * when the frame interaction completes (i.e., new meaning is defined).
+         */
         com.idilia.lgcc.createMeaning(this.$elem, this.options.lgcc, {
           customerId: custId, /* id customer adding sense */
           token: auth,  /* authentication token */
@@ -768,12 +790,20 @@ if (typeof Object.create !== "function") {
           v: 1          /* version number of protocol used by client */
         }).done(function (res) {
           if (res && res['card']) {
+            base.nTiles = base.nTiles + 1;
+            base._refreshWidth();
             var $newCard = $(res['card']);
             $card.before($newCard);
             $newCard.senseCard({lgcc: base.options.lgcc});
           }
         }).fail(function (res) {
           alert(errMsg);
+        }).always(function () {
+          $card.css("cursor", cursorVal);
+          var $def = $card.find('.idl-def');
+          if ($def.is(":visible")) {
+            $def.hide();
+          }
         });
       },
       
@@ -894,8 +924,6 @@ if (typeof Object.create !== "function") {
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-; /* Intentional, whatever linting reports */
 
 if (typeof Object.create !== "function") {
   Object.create = function (obj) {
@@ -1105,7 +1133,7 @@ if (typeof Object.create !== "function") {
         
         if (enable)
         {
-          if (_htmlClickEnabledCount == 0) {
+          if (_htmlClickEnabledCount === 0) {
             $("html").on("click", base._htmlClickHandler);
           }
           _htmlClickEnabledCount++;
@@ -1113,7 +1141,7 @@ if (typeof Object.create !== "function") {
         else
         {
           --_htmlClickEnabledCount;
-          if (_htmlClickEnabledCount == 0) {
+          if (_htmlClickEnabledCount === 0) {
             $("html").off("click", base._htmlClickHandler);
           }
         }
@@ -1215,12 +1243,18 @@ if (typeof Object.create !== "function") {
 
         if (base.options.wordsContent === "tile") {
           var $tile = base.$menu.find(".idl-tile-container[data-grp]").first();  /* first tile part of a group, excluding others */
+          if ($tile.length === 0) {
+            $tile = base.$menu.find(".idl-tile-other");
+          }
+          if ($tile.length === 0) {
+            $tile = base.$menu.find(".idl-tile-any");
+          }
           if ($tile.length !== 0) {
             base.$tile = $tile;
             base.$elem[0].innerHTML = base.$tile[0].outerHTML; /* set the tile idl-menu-word content to the tile */
           } else {
             // If showing tiles and there is no sense, synthesize one
-            base.$elem[0].innerHTML = '<div class="idl-tile-container idl-sensesel idl-tile-img idl-menu-sensecard idl-tmplt-menu_image_v1" data-grp="1"><div class="idl-sensetile"><div class="idl-def-tgl"><span class="fa fa-chevron-down"></span></div><div class="idl-tile-sum"><h1>' + base.$elem.data("tok") + '</h1></div><div class="idl-def"><p>Any sense (no known meaning).</p></div></div></div>';
+            base.$elem[0].innerHTML = '<div class="idl-tile-container idl-menu-sensecard idl-sensesel idl-tile-text idl-tmplt-menu_image_v3" data-grp="1"><div class="idl-sensetile"><div class="idl-tile-sum"><h1>' + base.$elem.data("tok") + '</h1></div><div class="idl-def"><p>Any sense (no known meaning).</p></div></div></div>';
             base.$tile = base.$elem.find(".idl-tile-container").first();
           }
         }
@@ -1370,7 +1404,7 @@ if (typeof Object.create !== "function") {
         var res = [];
         var pathEnd = 0;
         var text = '';
-        var sense = undefined;
+        var sense;
         var elements = base.$elem.children();
         for (var i = 0, iEnd = elements.length; i < iEnd; ++i) {
           var $e = $(elements[i]);

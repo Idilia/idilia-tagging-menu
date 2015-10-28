@@ -8,9 +8,6 @@
  box-sizing: border-box;
 }
 
-.idl-tile-container {
-}
-
 .idl-sensetile {
  color: #666;
  font-size: 13px;
@@ -34,10 +31,6 @@
  margin: -5px 0 10px 0;
 }
 
-/* description */
-.idl-sensetile .idl-def {
-}
-
 .idl-sensetile .idl-def p {
  font-size: inherit;
  font-weight: inherit;
@@ -48,7 +41,7 @@
 
 .idl-icon-container, .idl-img-container {
  float: left;
- margin: 0 10px 0px 0;
+ margin: 0 10px 0 0;
 }
 
 /* icon */
@@ -134,7 +127,7 @@
  background-color: rgba(51,51,51,0.8);
  color:white;
  line-height: 100%;
- padding: 0px 4px;
+ padding: 0 4px;
  overflow:hidden;
  width:100%;
 }
@@ -169,7 +162,6 @@
  background-position-y: 2px;
  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGZpbGw9IiMwMjAyMDIiIGQ9Ik00MjIuOTUzLDE3Ni4wMTljMC41NDktMC40OCwxLjA5LTAuOTc1LDEuNjEyLTEuNDk4bDIxLjc3Mi0yMS43NzJjMTIuODgzLTEyLjg4MywxMi44ODMtMzMuNzcxLDAtNDYuNjU0DQoJCWwtNDAuNDM0LTQwLjQzNGMtMTIuODgzLTEyLjg4My0zMy43NzEtMTIuODgzLTQ2LjY1MywwbC0yMS43NzIsMjEuNzcyYy0wLjUyMywwLjUyMy0xLjAxOCwxLjA2NC0xLjQ5OCwxLjYxM0w0MjIuOTUzLDE3Ni4wMTl6Ii8+DQoJPHBvbHlnb24gZmlsbD0iIzAyMDIwMiIgcG9pbnRzPSIxMTQuMzE3LDM5Ny42ODQgMTU3LjMxNyw0NDAuNjg0IDEwNi42NTgsNDQ4LjM0MiA1Niw0NTYgNjMuNjU4LDQwNS4zNDEgNzEuMzE2LDM1NC42ODMgCSIvPg0KCTxwb2x5Z29uIGZpbGw9IiMwMjAyMDIiIHBvaW50cz0iMzQ5LjE0MywxMjUuNTM1IDExOC45ODIsMzU1LjY5NCAxMDYuNTQxLDM0My4yNTMgMzM2LjcwMSwxMTMuMDk0IDMyNC4yNiwxMDAuNjUzIDgxLjY1OSwzNDMuMjUzIA0KCQkxNjguNzQ3LDQzMC4zNDEgNDExLjM0OCwxODcuNzQgCSIvPg0KPC9nPg0KPC9zdmc+DQo=") !important;
 }
-
 .idl-menu-sensecard .idl-tile-sum h1 {
  font-size: 14px;
 }
@@ -181,7 +173,7 @@
  box-sizing: border-box;
 }
 
-.idl-menu-sensecard.idl-tile-other p {
+.idl-menu-sensecard.idl-tile-other .idl-large-def {
  text-align: center;
  font-size: 2em;
 }
@@ -239,7 +231,3 @@
   opacity: 1.0;
 }
 
-/* Lgcc pending access */
-.lgcc-pending {
- cursor: progress;
-}

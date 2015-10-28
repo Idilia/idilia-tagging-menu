@@ -28,8 +28,6 @@
  * THE SOFTWARE.
  */
 
-; /* Intentional, whatever linting reports */
-
 if (typeof Object.create !== "function") {
   Object.create = function (obj) {
     function F() {}
@@ -50,7 +48,7 @@ if (typeof Object.create !== "function") {
        */
       init : function (options, el) {
         var base = this;
-        base.$elem = $(el)
+        base.$elem = $(el);
         base.options = $.extend({}, $.fn.senseCard.options, options);
         
         base._create();
@@ -131,6 +129,9 @@ if (typeof Object.create !== "function") {
           return;
         }
         
+        /* Change the cursor to progress */
+        $card.css("cursor", "progress");
+        
         var sk = $card.data("fsk");
         var len = $card.data("len") || 1;
         var tmplt = $card.attr("class").match(/idl-tmplt-[\w-]*\b/)[0].substring(10);
@@ -156,6 +157,8 @@ if (typeof Object.create !== "function") {
           }
         }).fail(function (res) {
           alert(errMsg);
+        }).always(function () {
+          $card.css("cursor", "");
         });
       },
       
