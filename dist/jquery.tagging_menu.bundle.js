@@ -1243,12 +1243,18 @@ if (typeof Object.create !== "function") {
 
         if (base.options.wordsContent === "tile") {
           var $tile = base.$menu.find(".idl-tile-container[data-grp]").first();  /* first tile part of a group, excluding others */
+          if ($tile.length === 0) {
+            $tile = base.$menu.find(".idl-tile-other");
+          }
+          if ($tile.length === 0) {
+            $tile = base.$menu.find(".idl-tile-any");
+          }
           if ($tile.length !== 0) {
             base.$tile = $tile;
             base.$elem[0].innerHTML = base.$tile[0].outerHTML; /* set the tile idl-menu-word content to the tile */
           } else {
             // If showing tiles and there is no sense, synthesize one
-            base.$elem[0].innerHTML = '<div class="idl-tile-container idl-sensesel idl-tile-img idl-menu-sensecard idl-tmplt-menu_image_v1" data-grp="1"><div class="idl-sensetile"><div class="idl-def-tgl"><span class="fa fa-chevron-down"></span></div><div class="idl-tile-sum"><h1>' + base.$elem.data("tok") + '</h1></div><div class="idl-def"><p>Any sense (no known meaning).</p></div></div></div>';
+            base.$elem[0].innerHTML = '<div class="idl-tile-container idl-menu-sensecard idl-sensesel idl-tile-text idl-tmplt-menu_image_v3" data-grp="1"><div class="idl-sensetile"><div class="idl-tile-sum"><h1>' + base.$elem.data("tok") + '</h1></div><div class="idl-def"><p>Any sense (no known meaning).</p></div></div></div>';
             base.$tile = base.$elem.find(".idl-tile-container").first();
           }
         }
