@@ -76,5 +76,10 @@ idl-tile-img| A sense tile containing an image.
 
 #### Options
 
-There are no options for this plugin.
+The following options can be provided when instantiating the sense card:
+
+Option|Description
+---|----
+edited|       Callback function invoked after the card for the sense was edited
+deleted|       Callback function invoked after the sense has been deleted 
 
