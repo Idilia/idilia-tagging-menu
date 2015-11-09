@@ -152,7 +152,11 @@ if (typeof Object.create !== "function") {
             $card.replaceWith($newCard);
             $newCard.senseCard(opts);
             if (typeof opts.edited === "function") {
-              base.options.edited.call($newCard[0]);
+              opts.edited.call($newCard[0]);
+            }
+          } else if (res && res['status'] === 'deleted') {
+            if (typeof base.options.deleted === "function") {
+              base.options.deleted.call($card[0]);
             }
           }
         }).fail(function (res) {
@@ -195,6 +199,7 @@ if (typeof Object.create !== "function") {
    */
   $.fn.senseCard.options = {
     edited : null,
+    deleted: null,
     lgcc: 'https://lgcc.idilia.com/lgcc/'
   };
 }(jQuery, window, document));
