@@ -1,6 +1,6 @@
 /**
  * JQuery widget for a sense menu
- * Version: 1.0.8
+ * Version: 1.1.0
  * 
  * This menu enables the user to switch between a grid view and a carousel view.
  * The carousel is provided by owl-carousel.
@@ -333,7 +333,12 @@ if (typeof Object.create !== "function") {
         });
 
         /* Active the sensecard plugin on all our sensecards. */
-        base.$elem.children('.idl-sensetiles').children().senseCard({lgcc: base.options.lgcc});
+        base.$elem.children('.idl-sensetiles').children().senseCard({
+          lgcc: base.options.lgcc,
+          deleted: function() {
+            base._delSenseEH($(this));
+          }
+        });
         
         /* Ensure that we know the selected sense if any */
         base._selTileIdx();
@@ -594,7 +599,12 @@ if (typeof Object.create !== "function") {
             base._refreshWidth();
             var $newCard = $(res['card']);
             $card.before($newCard);
-            $newCard.senseCard({lgcc: base.options.lgcc});
+            $newCard.senseCard({
+              lgcc: base.options.lgcc,
+              deleted: function() {
+                base._delSenseEH($(this));
+              }
+            });
           }
         }).fail(function (res) {
           alert(errMsg);
@@ -618,6 +628,15 @@ if (typeof Object.create !== "function") {
         $('head').append('<script id="lgcc-script" type="application/javascript" src="' + this.options.lgcc + 'apijs/lgcc.js"></script>');
       },
       
+      /** Event handler when the customer sense was deleted. Remove the card */
+      _delSenseEH: function($card) {
+        var base = this;
+
+        $card.remove();
+        base.nTiles = base.nTiles - 1;
+        base._refreshWidth();
+      },
+
       end: null
   };
 

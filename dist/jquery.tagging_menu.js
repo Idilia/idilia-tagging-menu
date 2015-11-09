@@ -1,6 +1,6 @@
 /**
  * JQueryUI widget for a block of text with many words to tag
- * Version: 1.0.8
+ * Version: 1.1.0
  * 
  * Widget should be attached the the div containing the words to which a sense must be given.
  * 
@@ -159,7 +159,12 @@ if (typeof Object.create !== "function") {
         if (upd) {
           if (base.options.wordsContent === "tile") { 
             base.$elem[0].innerHTML = event['$selTile'][0].outerHTML;
-            base.$elem.senseCard({lgcc: base.options.senseMenuOptions.lgcc});
+            base.$elem.senseCard({
+              lgcc: base.options.senseMenuOptions.lgcc,
+              deleted: function() {
+                base._deletedWordTileEH($(this));
+              }
+            });
           }
           else {
             // Assemble the surface words for spanned spans
@@ -385,21 +390,7 @@ if (typeof Object.create !== "function") {
         var base = this;
 
         if (base.options.wordsContent === "tile") {
-          var $tile = base.$menu.find(".idl-tile-container[data-grp]").first();  /* first tile part of a group, excluding others */
-          if ($tile.length === 0) {
-            $tile = base.$menu.find(".idl-tile-other");
-          }
-          if ($tile.length === 0) {
-            $tile = base.$menu.find(".idl-tile-any");
-          }
-          if ($tile.length !== 0) {
-            base.$tile = $tile;
-            base.$elem[0].innerHTML = base.$tile[0].outerHTML; /* set the tile idl-menu-word content to the tile */
-          } else {
-            // If showing tiles and there is no sense, synthesize one
-            base.$elem[0].innerHTML = '<div class="idl-tile-container idl-menu-sensecard idl-sensesel idl-tile-text idl-tmplt-menu_image_v3" data-grp="1"><div class="idl-sensetile"><div class="idl-tile-sum"><h1>' + base.$elem.data("tok") + '</h1></div><div class="idl-def"><p>Any sense (no known meaning).</p></div></div></div>';
-            base.$tile = base.$elem.find(".idl-tile-container").first();
-          }
+          base._setWordTile();
         }
         
         /* Create the menu with the HTML fragment. */
@@ -434,6 +425,50 @@ if (typeof Object.create !== "function") {
 
         /** Initialize as untagged */
         base.$elem.addClass("idl-untagged");
+      },
+      
+      /** 
+       * Private function to set a menu tile when displaying tiles instead of the word itself
+       * Updates base.$tile and base.$elem's html
+       */
+      _setWordTile : function () {
+        var base = this;
+        
+        var $tile = base.$menu.find(".idl-sensesel").first(); /* selected tile */
+        if ($tile.length === 0) {
+          $tile = base.$menu.find(".idl-tile-container[data-grp]").first();  /* first tile part of a group, excluding others */
+        }
+        if ($tile.length === 0) {
+          $tile = base.$menu.find(".idl-tile-other");
+        }
+        if ($tile.length === 0) {
+          $tile = base.$menu.find(".idl-tile-any");
+        }
+        if ($tile.length == 0) {
+          // If showing tiles and there is no sense, synthesize one
+          $tile = $('<div class="idl-tile-container idl-menu-sensecard idl-sensesel idl-tile-text idl-tmplt-menu_image_v3" data-grp="1"><div class="idl-sensetile"><div class="idl-tile-sum"><h1>' + base.$elem.data("tok") + '</h1></div><div class="idl-def"><p>Any sense (no known meaning).</p></div></div></div>');
+        }
+        
+        base.$tile = $tile;
+        base.$elem[0].innerHTML = $tile[0].outerHTML; /* set the tile idl-menu-word content to the tile */
+      },
+      
+      /** 
+       * Private event handler for the word tile being deleted.
+       * This is called when displaying tiles for the current sense value
+       * and the tile is deleted. Remove it from the menu and replace with first tile.
+       * @param $card jquery element for the card deleted in the language graph customer center
+       */
+      _deletedWordTileEH : function ($card) {
+        var base = this;
+        
+        /* Remove the card from the menu that corresponds to this sensekey */
+        var fsk=$card.data("fsk");
+        var sel=".idl-tile-container[data-fsk='" + fsk + "']";
+        base.$menu.find(sel).remove();
+        
+        /* Replace the tile */
+        base._setWordTile();
       },
 
       /** Private function to return the lemma in a sensekey */
