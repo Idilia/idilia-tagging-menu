@@ -1,6 +1,6 @@
 /**
  * JQuery widget for animating a sense card
- * Version: 1.1.0
+ * Version: 1.1.1
  * 
  * Widget should be attached to the div containing the sensecard (.idl-tile-container)
  * 
@@ -146,15 +146,15 @@ if (typeof Object.create !== "function") {
           len : len,    /* number of tokens spanned by expression */
           v: 1          /* version number of protocol used by client */
         }).done(function (res) {
-          if (res && res['card']) {
-            var $newCard = $(res['card']);
+          if (res && res.card) {
+            var $newCard = $(res.card);
             var opts = base.options;
             $card.replaceWith($newCard);
             $newCard.senseCard(opts);
             if (typeof opts.edited === "function") {
               opts.edited.call($newCard[0]);
             }
-          } else if (res && res['status'] === 'deleted') {
+          } else if (res && res.status === 'deleted') {
             if (typeof base.options.deleted === "function") {
               base.options.deleted.call($card[0]);
             }
@@ -206,7 +206,7 @@ if (typeof Object.create !== "function") {
 
 /**
  * JQuery widget for a sense menu
- * Version: 1.1.0
+ * Version: 1.1.1
  * 
  * This menu enables the user to switch between a grid view and a carousel view.
  * The carousel is provided by owl-carousel.
@@ -366,7 +366,7 @@ if (typeof Object.create !== "function") {
         /* Construct event data for the new and old sense */
         var eventData = { '$selTile': $tile };
         if (base.$selTile) {
-          eventData['$prevTile'] = base.$selTile;
+          eventData.$prevTile = base.$selTile;
         }
         
         if (base.$selTile != $tile) {
@@ -800,10 +800,10 @@ if (typeof Object.create !== "function") {
           len : len,    /* number of tokens spanned by expression */
           v: 1          /* version number of protocol used by client */
         }).done(function (res) {
-          if (res && res['card']) {
+          if (res && res.card) {
             base.nTiles = base.nTiles + 1;
             base._refreshWidth();
-            var $newCard = $(res['card']);
+            var $newCard = $(res.card);
             $card.before($newCard);
             $newCard.senseCard({
               lgcc: base.options.lgcc,
@@ -882,7 +882,7 @@ if (typeof Object.create !== "function") {
 
 /**
  * JQueryUI widget for a block of text with many words to tag
- * Version: 1.1.0
+ * Version: 1.1.1
  * 
  * Widget should be attached the the div containing the words to which a sense must be given.
  * 
@@ -1011,19 +1011,19 @@ if (typeof Object.create !== "function") {
         var base = this;
 
         /* Add to given event data spanning information and the impacted text element */
-        event['$text'] = base.$elem;
-        event['selStart'] = base.tfOff;
-        base.endOff = event['selEnd'] = base.tfOff + parseInt(event['$selTile'].data("len") || "1", 10);
+        event.$text = base.$elem;
+        event.selStart = base.tfOff;
+        base.endOff = event.selEnd = base.tfOff + parseInt(event.$selTile.data("len") || "1", 10);
 
-        if (event['$prevTile']) {
-          event['prevStart'] = base.tfOff;
-          event['prevEnd'] = base.tfOff + parseInt(event['$prevTile'].data("len") || "1", 10);
+        if (event.$prevTile) {
+          event.prevStart = base.tfOff;
+          event.prevEnd = base.tfOff + parseInt(event.$prevTile.data("len") || "1", 10);
         }
         
-        base.$tile   = event['$selTile'];
+        base.$tile   = event.$selTile;
 
         /* Update the attributes of the text element */
-        var fsk = event['$selTile'].data('fsk');
+        var fsk = event.$selTile.data('fsk');
         base.$elem.
           data("fsk", fsk).
           addClass("idl-tagged idl-mantagged").
@@ -1040,7 +1040,7 @@ if (typeof Object.create !== "function") {
         }
         if (upd) {
           if (base.options.wordsContent === "tile") { 
-            base.$elem[0].innerHTML = event['$selTile'][0].outerHTML;
+            base.$elem[0].innerHTML = event.$selTile[0].outerHTML;
             base.$elem.senseCard({
               lgcc: base.options.senseMenuOptions.lgcc,
               deleted: function() {
@@ -1083,8 +1083,8 @@ if (typeof Object.create !== "function") {
           'selEnd' : base.tfOff + 1
         };
         if (base.$tile) {
-          data['prevStart'] = base.tfOff;
-          data['prevEnd'] = base.tfOff + parseInt(base.$tile.data("len") || "1", 10);
+          data.prevStart = base.tfOff;
+          data.prevEnd = base.tfOff + parseInt(base.$tile.data("len") || "1", 10);
         }
         base.$elem.parent().trigger( "tm_itl_sensesel", data);
         
@@ -1285,7 +1285,7 @@ if (typeof Object.create !== "function") {
           
           /* Add a handler when a create sense action is selected. */
           createsel: function (event) {
-            event['$text'] = base.$elem;
+            event.$text = base.$elem;
             base.options.createsel(event);
             if (base.options.closeOnSelect) {
               base.close();
@@ -1326,7 +1326,7 @@ if (typeof Object.create !== "function") {
         if ($tile.length === 0) {
           $tile = base.$menu.find(".idl-tile-any");
         }
-        if ($tile.length == 0) {
+        if ($tile.length === 0) {
           // If showing tiles and there is no sense, synthesize one
           $tile = $('<div class="idl-tile-container idl-menu-sensecard idl-sensesel idl-tile-text idl-tmplt-menu_image_v3" data-grp="1"><div class="idl-sensetile"><div class="idl-tile-sum"><h1>' + base.$elem.data("tok") + '</h1></div><div class="idl-def"><p>Any sense (no known meaning).</p></div></div></div>');
         }
@@ -1474,14 +1474,14 @@ if (typeof Object.create !== "function") {
             var w = base.words[$e.data("widx")];
             if (w.tfOff === pathEnd) {
               if (sense !== undefined) {
-                sense['text'] = text.trim();
+                sense.text = text.trim();
                 res.push(sense);
                 text = '';
               }
               sense = {'start' : w.tfOff, 'len' : w.endOff - w.tfOff, 'spcAft' : false};
               var fsk = $e.data('fsk');
               if (fsk) {
-                sense['fsk'] = fsk;
+                sense.fsk = fsk;
               }
               pathEnd = w.endOff;
             }
@@ -1490,7 +1490,7 @@ if (typeof Object.create !== "function") {
             var g = base.gaps[$e.data("gidx")];
             if (g.isWord && g.tfOff === pathEnd) {
               if (sense !== undefined ) {
-                sense['text'] = text.trim();
+                sense.text = text.trim();
                 res.push(sense);
                 text = '';
               }
@@ -1498,13 +1498,13 @@ if (typeof Object.create !== "function") {
               pathEnd = g.endOffset();
             } else if (!g.isWord && g.tfOff === pathEnd) {
               if (sense !== undefined ) {
-                sense['spcAft'] = true;
+                sense.spcAft = true;
               }
             }
             text += $e.text();
           }
         }
-        sense['text'] = text.trim();
+        sense.text = text.trim();
         res.push(sense);
         return res;
       },
@@ -1566,10 +1566,10 @@ if (typeof Object.create !== "function") {
         var base = this;
 
         /* Assemble request parameters depending on type of card */
-        var cacheKey = undefined;
+        var cacheKey;
         var data = { tmplt : base.tmplt};
         var fsk = word.$tile.data('fsk');
-        data['fsk'] = cacheKey = fsk;
+        data.fsk = cacheKey = fsk;
         
         /* Check if already in cache */
         cacheKey = cacheKey.replace(/\W/g, '');
@@ -1585,7 +1585,7 @@ if (typeof Object.create !== "function") {
           url: base.options.apiUrl + "sensecard.js",
           dataType: 'jsonp'
         }).done(function (data) {
-          var card = data["card"];
+          var card = data.card;
           base.sensecards[cacheKey] = card;
           word._popover({content: card});
         });

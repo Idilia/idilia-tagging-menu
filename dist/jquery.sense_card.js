@@ -1,6 +1,6 @@
 /**
  * JQuery widget for animating a sense card
- * Version: 1.1.0
+ * Version: 1.1.1
  * 
  * Widget should be attached to the div containing the sensecard (.idl-tile-container)
  * 
@@ -146,15 +146,15 @@ if (typeof Object.create !== "function") {
           len : len,    /* number of tokens spanned by expression */
           v: 1          /* version number of protocol used by client */
         }).done(function (res) {
-          if (res && res['card']) {
-            var $newCard = $(res['card']);
+          if (res && res.card) {
+            var $newCard = $(res.card);
             var opts = base.options;
             $card.replaceWith($newCard);
             $newCard.senseCard(opts);
             if (typeof opts.edited === "function") {
               opts.edited.call($newCard[0]);
             }
-          } else if (res && res['status'] === 'deleted') {
+          } else if (res && res.status === 'deleted') {
             if (typeof base.options.deleted === "function") {
               base.options.deleted.call($card[0]);
             }

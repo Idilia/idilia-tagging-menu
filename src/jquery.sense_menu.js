@@ -1,6 +1,6 @@
 /**
  * JQuery widget for a sense menu
- * Version: 1.1.0
+ * Version: 1.1.1
  * 
  * This menu enables the user to switch between a grid view and a carousel view.
  * The carousel is provided by owl-carousel.
@@ -160,7 +160,7 @@ if (typeof Object.create !== "function") {
         /* Construct event data for the new and old sense */
         var eventData = { '$selTile': $tile };
         if (base.$selTile) {
-          eventData['$prevTile'] = base.$selTile;
+          eventData.$prevTile = base.$selTile;
         }
         
         if (base.$selTile != $tile) {
@@ -594,10 +594,10 @@ if (typeof Object.create !== "function") {
           len : len,    /* number of tokens spanned by expression */
           v: 1          /* version number of protocol used by client */
         }).done(function (res) {
-          if (res && res['card']) {
+          if (res && res.card) {
             base.nTiles = base.nTiles + 1;
             base._refreshWidth();
-            var $newCard = $(res['card']);
+            var $newCard = $(res.card);
             $card.before($newCard);
             $newCard.senseCard({
               lgcc: base.options.lgcc,
