@@ -1,6 +1,6 @@
 /**
  * JQuery widget for animating a sense card
- * Version: 1.1.1
+ * Version: 1.1.2
  * 
  * Widget should be attached to the div containing the sensecard (.idl-tile-container)
  * 
@@ -202,11 +202,27 @@ if (typeof Object.create !== "function") {
     deleted: null,
     lgcc: 'https://lgcc.idilia.com/lgcc/'
   };
+  
+  /**
+   * Load the open-sans font to ensure that available
+   */
+  WebFontConfig = {
+    google: { families: [ 'Open+Sans::latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+  
 }(jQuery, window, document));
 
 /**
  * JQuery widget for a sense menu
- * Version: 1.1.1
+ * Version: 1.1.2
  * 
  * This menu enables the user to switch between a grid view and a carousel view.
  * The carousel is provided by owl-carousel.
@@ -882,7 +898,7 @@ if (typeof Object.create !== "function") {
 
 /**
  * JQueryUI widget for a block of text with many words to tag
- * Version: 1.1.1
+ * Version: 1.1.2
  * 
  * Widget should be attached the the div containing the words to which a sense must be given.
  * 
