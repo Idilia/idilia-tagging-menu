@@ -73,6 +73,11 @@
  word-break: break-all;
 }
 
+.idl-img-container img {
+  height: 160px;
+  width: 160px;
+}
+
 /*
  * Styles for the sense tiles - grid and carousel
  */
