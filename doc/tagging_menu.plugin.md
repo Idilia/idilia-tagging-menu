@@ -124,6 +124,7 @@ hideUntaggable (_boolean_, default: false)| parts of the text can be identified 
 useToolTip (_boolean_, default: true)| Whether to display a sense card when mousing over word. Default is true. Set to false if you don’t have Bootstrap popover.
 informOnOther (_boolean_, default: true) | notify Idilia if "other sense" selection is made. In some cases the sense inventory will be missing a sense and this will be the only option. Notifying Idilia enables us to improve our sense inventory.
 closeOnSelect (_boolean_, default: true) | close the sense options view on sense selection
+closeOnExternalClick (_boolean_, default: true) | close the sense options view on click outside the sense options
 preselect ('sa' (default), 'mono' or 'none')| Determines if a sense is preselected for a word. ‘sa’ uses the result of Sense Analysis (default); ‘mono’ preselects when a single sense is possible; ‘none’ disables pre-selection.
 sensesel | Callback function invoked on a sense selection
 sensedesel | Callback function invoked on a sense deselection
