@@ -1,6 +1,6 @@
 /**
  * JQuery widget for animating a sense card
- * Version: 1.1.3
+ * Version: 1.1.4
  * 
  * Widget should be attached to the div containing the sensecard (.idl-tile-container)
  * 
@@ -222,7 +222,7 @@ if (typeof Object.create !== "function") {
 
 /**
  * JQuery widget for a sense menu
- * Version: 1.1.3
+ * Version: 1.1.4
  * 
  * This menu enables the user to switch between a grid view and a carousel view.
  * The carousel is provided by owl-carousel.
@@ -898,7 +898,7 @@ if (typeof Object.create !== "function") {
 
 /**
  * JQueryUI widget for a block of text with many words to tag
- * Version: 1.1.3
+ * Version: 1.1.4
  * 
  * Widget should be attached the the div containing the words to which a sense must be given.
  * 
@@ -1177,7 +1177,7 @@ if (typeof Object.create !== "function") {
       _monitorHtmlClicks : function(enable) {
         var base = this;
         
-        if (!base.options.closeOnExternalClick)
+        if (!base.options.closeOnOutsideClick)
           return;
 
         if (enable)
@@ -1810,7 +1810,7 @@ if (typeof Object.create !== "function") {
     hideUntaggable: false, /* whether tagging menus should hide text which is not to be tagged */
     informOnOther: true, /* Notify Idilia of sense selection with "other" sense */
     closeOnSelect: true,   /* Close menu on sense selection */
-    closeOnExternalClick: true, /* Close menu when a click is outside the opened sense menu */
+    closeOnOutsideClick: true, /* Close menu when a click is outside the opened sense menu */
     apiUrl: 'https://api.idilia.com/1/kb/', /* Service url to obtain the sensecards */
     preselect: 'sa',  /* Preselect the senses based on the output of Sense Analysis. Others are 'mono', 'none' */
     senseMenuOptions : {}, /* Sense menu options. None given here to use the defaults */
