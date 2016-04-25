@@ -1,6 +1,6 @@
 /**
  * JQueryUI widget for a block of text with many words to tag
- * Version: 1.1.4
+ * Version: 1.1.6
  * 
  * Widget should be attached the the div containing the words to which a sense must be given.
  * 
@@ -92,7 +92,7 @@ if (typeof Object.create !== "function") {
   /* Reference counting of global html click handler. Handler is installed on transition
    * from 0 to 1, and removed when back down to 0. Reference count will go up to 2 when
    * a word menu is opened while a sibling menu is already opened. */
-  var _htmlClickEnabledCount = 0;
+  var _bodyClickEnabledCount = 0;
   
   /**
    * An object that is created for each word with an associated sense menu.
@@ -266,7 +266,7 @@ if (typeof Object.create !== "function") {
         return this.endOff;
       },
 
-      _htmlClickHandler: function(event) {
+      _bodyClickHandler: function(event) {
         if ($(event.target).closest(".idl-sensemenu").size() > 0) {
           return;
         }
@@ -276,7 +276,7 @@ if (typeof Object.create !== "function") {
         _doNotClose = false;
       },
 
-      _monitorHtmlClicks : function(enable) {
+      _monitorBodyClicks : function(enable) {
         var base = this;
         
         if (!base.options.closeOnOutsideClick)
@@ -284,16 +284,16 @@ if (typeof Object.create !== "function") {
 
         if (enable)
         {
-          if (_htmlClickEnabledCount === 0) {
-            $("html").on("click", base._htmlClickHandler);
+          if (_bodyClickEnabledCount === 0) {
+            $(document.body).on("click", base._bodyClickHandler);
           }
-          _htmlClickEnabledCount++;
+          _bodyClickEnabledCount++;
         }
         else
         {
-          --_htmlClickEnabledCount;
-          if (_htmlClickEnabledCount === 0) {
-            $("html").off("click", base._htmlClickHandler);
+          --_bodyClickEnabledCount;
+          if (_bodyClickEnabledCount === 0) {
+            $(document.body).off("click", base._bodyClickHandler);
           }
         }
       },
@@ -309,7 +309,7 @@ if (typeof Object.create !== "function") {
             base.options.beforeOpen(this);
           }
           
-          base._monitorHtmlClicks(true);
+          base._monitorBodyClicks(true);
 
           if (_openedWord) {
             _openedWord.close();
@@ -333,7 +333,7 @@ if (typeof Object.create !== "function") {
         if (_openedWord == this)
         {
           var base = this;
-          base._monitorHtmlClicks(false);
+          base._monitorBodyClicks(false);
           _openedWord = null;
           base.menuW.close();
           base.$elem.removeClass("idl-active");
