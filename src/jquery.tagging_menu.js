@@ -179,8 +179,9 @@ if (typeof Object.create !== "function") {
         }
 
         /* And close the menu */
-        if (base.options.closeOnSelect)
+        if (base.options.closeOnSelect) {
           base.close();
+        }
       },
 
 
@@ -414,12 +415,14 @@ if (typeof Object.create !== "function") {
 
         base.$elem.on({
           /** handler when the text/tile is clicked. 
-           *  Open this word's menu if more than one card 
+           *  Open this word's menu if more than one card or close when opened.
            */
           "click" : function (event) {
-              if (base.polysemous()) {
-                base.open();
-              }
+            if (base.$elem.hasClass("idl-active")) {
+              base.close();
+            } else if (base.polysemous()) {
+              base.open();
+            }
           }
         });
 
