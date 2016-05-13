@@ -1,6 +1,6 @@
 /**
  * JQuery widget for a sense menu
- * Version: 1.1.6
+ * Version: 1.1.7
  * 
  * This menu enables the user to switch between a grid view and a carousel view.
  * The carousel is provided by owl-carousel.
