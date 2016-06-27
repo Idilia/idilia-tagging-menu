@@ -1,6 +1,6 @@
 /**
  * JQueryUI widget for a block of text with many words to tag
- * Version: 1.1.7
+ * Version: 1.1.8
  * 
  * Widget should be attached the the div containing the words to which a sense must be given.
  * 
@@ -423,7 +423,7 @@ if (typeof Object.create !== "function") {
           "click" : function (event) {
             if (base.$elem.hasClass("idl-active")) {
               base.close();
-            } else if (base.polysemous()) {
+            } else {
               base.open();
             }
           }

@@ -1,6 +1,6 @@
 /**
  * JQuery widget for animating a sense card
- * Version: 1.1.7
+ * Version: 1.1.8
  * 
  * Widget should be attached to the div containing the sensecard (.idl-tile-container)
  * 
@@ -222,7 +222,7 @@ if (typeof Object.create !== "function") {
 
 /**
  * JQuery widget for a sense menu
- * Version: 1.1.7
+ * Version: 1.1.8
  * 
  * This menu enables the user to switch between a grid view and a carousel view.
  * The carousel is provided by owl-carousel.
@@ -898,7 +898,7 @@ if (typeof Object.create !== "function") {
 
 /**
  * JQueryUI widget for a block of text with many words to tag
- * Version: 1.1.7
+ * Version: 1.1.8
  * 
  * Widget should be attached the the div containing the words to which a sense must be given.
  * 
@@ -1321,7 +1321,7 @@ if (typeof Object.create !== "function") {
           "click" : function (event) {
             if (base.$elem.hasClass("idl-active")) {
               base.close();
-            } else if (base.polysemous()) {
+            } else {
               base.open();
             }
           }
