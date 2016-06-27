@@ -423,7 +423,7 @@ if (typeof Object.create !== "function") {
           "click" : function (event) {
             if (base.$elem.hasClass("idl-active")) {
               base.close();
-            } else if (base.polysemous()) {
+            } else {
               base.open();
             }
           }
