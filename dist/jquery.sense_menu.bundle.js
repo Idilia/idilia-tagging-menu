@@ -1,6 +1,6 @@
 /**
  * JQuery widget for animating a sense card
- * Version: 1.1.8
+ * Version: 1.1.9
  * 
  * Widget should be attached to the div containing the sensecard (.idl-tile-container)
  * 
@@ -60,7 +60,7 @@ if (typeof Object.create !== "function") {
       toggleDef : function () {
         var base = this;
         var $def = base.$elem.find('.idl-def-tgl');
-        if ($def.size() > 0)
+        if ($def.length > 0)
           base._toggleDefEH($def.first());
       },
       
@@ -85,7 +85,7 @@ if (typeof Object.create !== "function") {
         
         /* Enable editing the card if we find an edit button */
         var $edit = base.$elem.find('.idl-sense-edit');
-        if ($edit.size() > 0) {
+        if ($edit.length > 0) {
           $edit.click(function (event) {
             var $card = $(this).closest(".idl-tile-container");
             base._senseEditEH($card);
@@ -170,7 +170,7 @@ if (typeof Object.create !== "function") {
         if (window.com && com.idilia && com.idilia.lgcc) {
           return;
         }
-        if ($('#lgcc-script').size() > 0) {
+        if ($('#lgcc-script').length > 0) {
           return;
         }
         $('head').append('<script id="lgcc-script" type="application/javascript" src="' + this.options.lgcc + 'apijs/lgcc.js"></script>');
@@ -222,7 +222,7 @@ if (typeof Object.create !== "function") {
 
 /**
  * JQuery widget for a sense menu
- * Version: 1.1.8
+ * Version: 1.1.9
  * 
  * This menu enables the user to switch between a grid view and a carousel view.
  * The carousel is provided by owl-carousel.
@@ -504,7 +504,7 @@ if (typeof Object.create !== "function") {
         
         /* Detect that we might need the LGCC */
         var $addLinks  = base.$elem.find('.idl-create-links');
-        if ($addLinks.size() > 0) {
+        if ($addLinks.length > 0) {
           /* Handler when selecting a create link */
           $addLinks.on('click', 'a', function (event) {
             base._senseCreateEH($(this));
@@ -756,7 +756,7 @@ if (typeof Object.create !== "function") {
         var base = this;
         
         var $addLinks  = $card.find('.idl-create-link');
-        if ($addLinks.size() === 1) {
+        if ($addLinks.length === 1) {
           /* A single word link, we can trigger it immediately */
           base._senseCreateEH($addLinks.first());
           return;
@@ -843,7 +843,7 @@ if (typeof Object.create !== "function") {
         if (window.com && com.idilia && com.idilia.lgcc) {
           return;
         }
-        if ($('#lgcc-script').size() > 0) {
+        if ($('#lgcc-script').length > 0) {
           return;
         }
         $.ajaxSetup({ cache: true });

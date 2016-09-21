@@ -1,6 +1,6 @@
 /**
  * JQuery widget for animating a sense card
- * Version: 1.1.8
+ * Version: 1.1.9
  * 
  * Widget should be attached to the div containing the sensecard (.idl-tile-container)
  * 
@@ -60,7 +60,7 @@ if (typeof Object.create !== "function") {
       toggleDef : function () {
         var base = this;
         var $def = base.$elem.find('.idl-def-tgl');
-        if ($def.size() > 0)
+        if ($def.length > 0)
           base._toggleDefEH($def.first());
       },
       
@@ -85,7 +85,7 @@ if (typeof Object.create !== "function") {
         
         /* Enable editing the card if we find an edit button */
         var $edit = base.$elem.find('.idl-sense-edit');
-        if ($edit.size() > 0) {
+        if ($edit.length > 0) {
           $edit.click(function (event) {
             var $card = $(this).closest(".idl-tile-container");
             base._senseEditEH($card);
@@ -170,7 +170,7 @@ if (typeof Object.create !== "function") {
         if (window.com && com.idilia && com.idilia.lgcc) {
           return;
         }
-        if ($('#lgcc-script').size() > 0) {
+        if ($('#lgcc-script').length > 0) {
           return;
         }
         $('head').append('<script id="lgcc-script" type="application/javascript" src="' + this.options.lgcc + 'apijs/lgcc.js"></script>');

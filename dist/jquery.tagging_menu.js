@@ -1,6 +1,6 @@
 /**
  * JQueryUI widget for a block of text with many words to tag
- * Version: 1.1.8
+ * Version: 1.1.9
  * 
  * Widget should be attached the the div containing the words to which a sense must be given.
  * 
@@ -268,7 +268,7 @@ if (typeof Object.create !== "function") {
       },
 
       _bodyClickHandler: function(event) {
-        if ($(event.target).closest(".idl-sensemenu").size() > 0) {
+        if ($(event.target).closest(".idl-sensemenu").length > 0) {
           return;
         }
         if (!_doNotClose && _openedWord) {
