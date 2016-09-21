@@ -268,7 +268,7 @@ if (typeof Object.create !== "function") {
       },
 
       _bodyClickHandler: function(event) {
-        if ($(event.target).closest(".idl-sensemenu").size() > 0) {
+        if ($(event.target).closest(".idl-sensemenu").length > 0) {
           return;
         }
         if (!_doNotClose && _openedWord) {

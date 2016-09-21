@@ -282,7 +282,7 @@ if (typeof Object.create !== "function") {
         
         /* Detect that we might need the LGCC */
         var $addLinks  = base.$elem.find('.idl-create-links');
-        if ($addLinks.size() > 0) {
+        if ($addLinks.length > 0) {
           /* Handler when selecting a create link */
           $addLinks.on('click', 'a', function (event) {
             base._senseCreateEH($(this));
@@ -534,7 +534,7 @@ if (typeof Object.create !== "function") {
         var base = this;
         
         var $addLinks  = $card.find('.idl-create-link');
-        if ($addLinks.size() === 1) {
+        if ($addLinks.length === 1) {
           /* A single word link, we can trigger it immediately */
           base._senseCreateEH($addLinks.first());
           return;
@@ -621,7 +621,7 @@ if (typeof Object.create !== "function") {
         if (window.com && com.idilia && com.idilia.lgcc) {
           return;
         }
-        if ($('#lgcc-script').size() > 0) {
+        if ($('#lgcc-script').length > 0) {
           return;
         }
         $.ajaxSetup({ cache: true });
