@@ -1,8 +1,18 @@
 {
   "name": "idilia-tagging-menu",
   "version": "1.1.9",
+  "description" : "jquery plugin for rendering an Idilia meaning selection menu",
+  "keywords" : ["nlp", "idilia", "jquery-plugin"],
+  "license" : "MIT",
+  "repository" : {
+     "type" : "git",
+     "url" : "https://github.com/Idilia/idilia-tagging-menu.git"
+  },
   "engines": {
     "node": ">= 0.8.0"
+  },
+  "dependencies" : {
+    "jquery" : ""
   },
   "devDependencies": {
     "grunt-contrib-copy": "^0.8.2",
