@@ -29,7 +29,13 @@ The simplest integration will be described here. Add-ons are documented in their
  bower install idilia-tagging-menu
  ```
 
- Get all files from github:
+ or with npm
+
+ ```shell
+ npm install -S idilia-tagging-menu
+ ```
+ 
+ or get all files from github:
 
  ```shell
  git clone http://github.com/Idilia/idilia-tagging-menu

@@ -25,6 +25,12 @@ Optional functionality is documented separately:
  bower install idilia-tagging-menu
  ```
 
+ or with npm
+
+ ```shell
+ npm install -S idilia-tagging-menu
+ ```
+ 
  or clone from github
 
  ```shell
